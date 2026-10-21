@@ -24,60 +24,69 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
-  const hero = await heroFor(p);
   const posters = await Promise.all(p.videos.map(posterFor));
-  const gallery = p.images.slice(p.images.length > 1 ? 1 : 0);
+  // With films, the poster is the hero; otherwise the first still is.
+  const hero = p.videos.length ? null : await heroFor(p);
+  const gallery = p.videos.length ? p.images : p.images.slice(1);
+  const n = (k: number) => String(k + 1).padStart(2, "0");
 
   return (
-    <main>
+    <>
       <Header current="work" />
-      <section className="case-hero" style={{ backgroundColor: p.color }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        {hero ? <img src={hero} alt="" /> : null}
-        <div className="veil" />
-        <div className="label" style={{ color: "var(--accent)" }}>
-          {String(i + 1).padStart(2, "0")} / {projects.length} · {p.client}
-        </div>
-        <h1>{p.title}</h1>
-      </section>
-
-      <section className="case-body">
-        <div className="side label">
-          <div>{p.client}</div>
-          <div>{p.tag}</div>
-          {indexCopy[p.slug]?.caption && indexCopy[p.slug].caption !== p.tag ? <div>{indexCopy[p.slug].caption}</div> : null}
-        </div>
-        <div className="copy">
-          {p.body.map((t, k) => (
-            <p key={k}>{t}</p>
-          ))}
-        </div>
-      </section>
-
-      {p.videos.length ? (
-        <section className={`media${p.videos.length > 1 ? " two" : ""}`} aria-label="Films">
-          {p.videos.map((v, k) => (
-            <div key={v.id}>
-              <VideoFacade src={embedUrl(v)} poster={posters[k]} title={`${p.title}${v.label ? ` — ${v.label}` : ""}`} />
-              {v.label ? <div className="label vlabel">{v.label}</div> : null}
-            </div>
-          ))}
+      <main>
+        <section className="case-head">
+          <div className="label k">
+            {n(i)} / {projects.length} · {p.client}
+          </div>
+          <h1>{p.title}</h1>
+          <Link href="/" className="label back">← All work</Link>
         </section>
-      ) : null}
 
-      {gallery.length ? (
-        <section className={`media${gallery.length > 1 ? " two" : ""}`} aria-label="Stills">
-          {gallery.map((src) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={src} src={src} alt={`${p.title} still`} loading="lazy" />
-          ))}
+        {hero ? (
+          <div className="case-hero" style={{ ["--c" as string]: p.color }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={hero} alt={`${p.title}`} />
+          </div>
+        ) : null}
+
+        {p.videos.length ? (
+          <section className={`media${p.videos.length > 1 ? " two" : ""}`} aria-label="Films" style={{ paddingTop: 0 }}>
+            {p.videos.map((v, k) => (
+              <div key={v.id}>
+                <VideoFacade src={embedUrl(v)} poster={posters[k]} title={`${p.title}${v.label ? `: ${v.label}` : ""}`} />
+                {v.label ? <div className="label vlabel">{v.label}</div> : null}
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        <section className="case-body">
+          <div className="side label">
+            <div>{p.client}</div>
+            <div>{p.tag}</div>
+            {indexCopy[p.slug]?.caption && indexCopy[p.slug].caption !== p.tag ? <div>{indexCopy[p.slug].caption}</div> : null}
+          </div>
+          <div className="copy">
+            {p.body.map((t, k) => (
+              <p key={k}>{t}</p>
+            ))}
+          </div>
         </section>
-      ) : null}
 
-      <Link href={`/work/${next.slug}`} className="next">
-        <span className="label" style={{ color: "var(--dim)" }}>Next · {String(((i + 1) % projects.length) + 1).padStart(2, "0")}</span>
-        <span className="t">{indexCopy[next.slug]?.wall ?? next.title} →</span>
-      </Link>
-    </main>
+        {gallery.length ? (
+          <section className={`media${gallery.length > 1 ? " two" : ""}`} aria-label="Stills">
+            {gallery.map((src, k) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={src} src={src} alt={`${p.title}, still ${k + 1}`} loading="lazy" />
+            ))}
+          </section>
+        ) : null}
+
+        <Link href={`/work/${next.slug}`} className="next">
+          <span className="label" style={{ color: "var(--dim)" }}>Next · {n((i + 1) % projects.length)}</span>
+          <span className="t">{indexCopy[next.slug]?.wall ?? next.title} →</span>
+        </Link>
+      </main>
+    </>
   );
 }

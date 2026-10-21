@@ -74,11 +74,7 @@ export const projects: Project[] = [
       { provider: "youtube", id: "vxHYpTNrL6c", label: "The film · 12:00" },
       { provider: "vimeo", id: "395312271", label: ":30" },
     ],
-    images: [
-      Z + "screenshot-2026-01-04-at-6.47.20a-pm-uv4AtrS0giwjZ9Xb.png",
-      Z + "screenshot-2026-01-05-at-2.27.00a-pm-6LGr9pyI81d5TaTl.png",
-      Z + "screenshot-2026-01-05-at-2.26.48a-pm-DoAu4UirlNHGecjd.png",
-    ],
+    images: [],
     color: "#24142F",
   },
   {
@@ -90,7 +86,11 @@ export const projects: Project[] = [
       "One Idea to get Oakley Surfing in (and on) surfers' heads. Featured across the whole ecosystem: POS, brand page, social pages, print, and very likely in the mouths of real humans.",
     ],
     videos: [],
-    images: [],
+    images: [
+      Z + "screenshot-2026-01-04-at-6.47.20a-pm-uv4AtrS0giwjZ9Xb.png",
+      Z + "screenshot-2026-01-05-at-2.27.00a-pm-6LGr9pyI81d5TaTl.png",
+      Z + "screenshot-2026-01-05-at-2.26.48a-pm-DoAu4UirlNHGecjd.png",
+    ],
     color: "#0F3D4C",
   },
   {
@@ -202,19 +202,10 @@ export const projects: Project[] = [
     images: [],
     color: "#24485A",
   },
-  {
-    slug: "mas",
-    title: "Más…",
-    client: "The archive",
-    tag: "To name-drop a few",
-    body: [
-      "Coke, Coke Zero, smartwater, Vitaminwater, Topo Chico, Dasani, Chobani, AT&T, Deloitte, Marriott, The North Face, Nike, Chipotle, Smirnoff, Under Armour, Samsung, Reddit, to name-drop a few.",
-    ],
-    videos: [],
-    images: [],
-    color: "#151412",
-  },
 ];
+
+export const clients =
+  "Coke, Coke Zero, smartwater, Vitaminwater, Topo Chico, Dasani, Chobani, AT&T, Deloitte, Marriott, The North Face, Nike, Chipotle, Smirnoff, Under Armour, Samsung, Reddit, to name-drop a few.";
 
 export const manifesto = [
   "'Travels' is the most important word in brand marketing right now.",

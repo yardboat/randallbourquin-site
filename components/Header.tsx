@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Header({ current }: { current: "work" | "worker" }) {
   return (
-    <header className="hdr label">
-      <Link href="/" className="who">
+    <header className="hdr">
+      <Link href="/" className="who" aria-label="Randall Bourquin, home">
         Randall Bourquin<em>is a strategist</em>
       </Link>
       <nav aria-label="Main">

@@ -14,5 +14,4 @@ export const indexCopy: Record<string, { wall: string; caption: string; teaser: 
   "the-north-face-the-story": { wall: "The North Face “The Story”", caption: "Object → artifact", teaser: "Artifacts are the objects that hold memories, that reflect our lives back to us." },
   "marriott-travel-by-design": { wall: "Marriott Travel by Design", caption: "Three seasons", teaser: "Almost impossible to pick just four properties, so the series rolled into a second and third season." },
   "smartwater-keep-it-smart": { wall: "smartwater x Zendaya", caption: "Keep it Smart", teaser: "Four on-the-verge fashion designers, across the spot and social in real time." },
-  mas: { wall: "Más…", caption: "To name-drop a few", teaser: "Coke, Coke Zero, smartwater, Vitaminwater, Topo Chico, Dasani, AT&T, Deloitte, Nike, Chipotle, Smirnoff, Under Armour, Samsung, Reddit." },
 };

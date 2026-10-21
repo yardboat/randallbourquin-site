@@ -15,38 +15,34 @@ export type WallItem = {
   cta: string;
 };
 
-export default function IndexWall({ items, initial = 3 }: { items: WallItem[]; initial?: number }) {
-  const [active, setActive] = useState(initial);
-  const router = useRouter();
-  const cur = items[active];
+type Props = { items: WallItem[]; manifesto: string[]; clients: string };
 
-  // Touch: first tap previews (no hover on phones), second tap opens the case.
+// The Index: every project on one wall, plus "Philosophy" as the emphasized last entry.
+// Text never sits on images: the wall is on paper, the media lives in its own panel.
+export default function IndexWall({ items, manifesto, clients }: Props) {
+  const PHILO = items.length;
+  const [active, setActive] = useState(PHILO);
+  const router = useRouter();
+  const cur = active === PHILO ? null : items[active];
+
+  // Touch has no hover: first tap previews, second tap opens the case.
   function onTap(e: React.MouseEvent<HTMLAnchorElement>, i: number) {
     const touch = (e.nativeEvent as PointerEvent).pointerType === "touch";
-    if (touch && i !== active) {
+    if (i === PHILO || (touch && i !== active)) {
       e.preventDefault();
       setActive(i);
     }
   }
 
-  return (
-    <>
-      <div className="stage" aria-hidden="true">
-        <div className="field" style={{ backgroundColor: cur.color }} />
-        {items.map((it, i) =>
-          it.hero ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={it.slug} src={it.hero} alt="" className={i === active ? "on" : ""} loading={i < 4 ? "eager" : "lazy"} decoding="async" />
-          ) : null
-        )}
-        <div className="veil" />
-      </div>
+  const n = (i: number) => String(i + 1).padStart(2, "0");
 
-      <section className="wall" aria-label="All work">
-        <h2 className="label" style={{ position: "absolute", left: -9999 }}>All work</h2>
-        <p>
+  return (
+    <div className="index">
+      <section className="wall" aria-labelledby="wall-h">
+        <h2 id="wall-h" className="sr">All work</h2>
+        <ol>
           {items.map((it, i) => (
-            <span key={it.slug}>
+            <li key={it.slug}>
               <Link
                 href={`/work/${it.slug}`}
                 className={i === active ? "on" : ""}
@@ -54,26 +50,76 @@ export default function IndexWall({ items, initial = 3 }: { items: WallItem[]; i
                 onFocus={() => setActive(i)}
                 onClick={(e) => onTap(e, i)}
               >
-                <sup>{String(i + 1).padStart(2, "0")}</sup>
+                <sup>{n(i)}</sup>
                 {it.wall}
               </Link>
-              {i < items.length - 1 ? <span className="sl" aria-hidden="true">/</span> : null}
-            </span>
+              <span className="sl" aria-hidden="true">/</span>
+            </li>
           ))}
-        </p>
+          <li>
+            <a
+              href="#philosophy"
+              className={`philo${active === PHILO ? " on" : ""}`}
+              onMouseEnter={() => setActive(PHILO)}
+              onFocus={() => setActive(PHILO)}
+              onClick={(e) => onTap(e, PHILO)}
+            >
+              Philosophy
+            </a>
+          </li>
+        </ol>
+        <p className="clients label">{clients}</p>
       </section>
 
-      <div className="foot" aria-live="polite">
-        <div>
-          <div className="label meta">
-            {String(active + 1).padStart(2, "0")} / {items.length} · {cur.client} · {cur.caption}
-          </div>
-          <p className="teaser">{cur.teaser}</p>
-        </div>
-        <button className="pill" onClick={() => router.push(`/work/${cur.slug}`)}>
-          {cur.cta} →
-        </button>
-      </div>
-    </>
+      <aside className="panel" aria-live="polite">
+        {cur ? (
+          <>
+            <div className="frame" style={{ ["--c" as string]: cur.color }}>
+              {items.map((it, i) =>
+                it.hero ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={it.slug}
+                    src={it.hero}
+                    alt={i === active ? it.wall : ""}
+                    className={i === active ? "on" : ""}
+                    loading={i < 4 ? "eager" : "lazy"}
+                    decoding="async"
+                    onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+                  />
+                ) : null
+              )}
+            </div>
+            <div className="info">
+              <div className="label meta">
+                {n(active)} / {items.length} · {cur.client}
+              </div>
+              <div className="label">{cur.caption}</div>
+              <p className="teaser">{cur.teaser}</p>
+              <button className="pill" onClick={() => router.push(`/work/${cur.slug}`)}>
+                {cur.cta} →
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="philosophy" id="philosophy">
+              <div className="label meta" style={{ marginBottom: 12 }}>Philosophy · what I believe</div>
+              <ol>
+                {manifesto.map((m) => (
+                  <li key={m}>{m}</li>
+                ))}
+              </ol>
+            </div>
+            <div className="info">
+              <p className="teaser" style={{ fontStyle: "italic" }}>
+                “Advertisers are the interpreters of our dreams.”
+              </p>
+              <div className="label" style={{ color: "var(--dim)" }}>E.B. White, 1936</div>
+            </div>
+          </>
+        )}
+      </aside>
+    </div>
   );
 }

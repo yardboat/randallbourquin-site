@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import IndexWall, { type WallItem } from "@/components/IndexWall";
-import { projects, manifesto, quote } from "@/content/projects";
+import { projects, manifesto, clients } from "@/content/projects";
 import { indexCopy } from "@/content/index-copy";
 import { heroFor } from "@/lib/media";
 
@@ -21,28 +21,13 @@ export default async function Home() {
     })
   );
 
-  const tickerText = manifesto.join("  ✦  ");
-
   return (
     <>
       <a href="#work" className="skip">Skip to the work</a>
-      <main id="work" className="index">
-        <Header current="work" />
-        <IndexWall items={items} initial={3} />
+      <Header current="work" />
+      <main id="work">
+        <IndexWall items={items} manifesto={manifesto} clients={clients} />
       </main>
-      <div className="ticker" aria-hidden="true">
-        <div>
-          <span>{tickerText}</span>
-          <span>{tickerText}</span>
-        </div>
-      </div>
-      <section aria-label="Beliefs" className="quote" style={{ fontStyle: "normal", maxWidth: "40ch", paddingBottom: 24 }}>
-        {manifesto.join(" ")}
-      </section>
-      <blockquote className="quote" style={{ margin: 0 }}>
-        “{quote.text}”
-        <footer className="label" style={{ fontStyle: "normal", marginTop: 16, color: "var(--dim)" }}>— {quote.by}</footer>
-      </blockquote>
     </>
   );
 }
