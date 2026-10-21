@@ -1,0 +1,8 @@
+/* Placeholder base styles. Art direction lands once Randall picks A (Broadsheet) or B (After Dark). */
+:root {
+  --bg: #e9e6df;
+  --ink: #151412;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; }
+a { color: inherit; }
