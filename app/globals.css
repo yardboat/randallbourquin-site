@@ -44,8 +44,8 @@ img { display: block; max-width: 100%; }
 .stage img.on { opacity: 1; transform: scale(1.0); }
 .stage .veil { position: absolute; inset: 0; background: rgba(8, 8, 8, 0.62); }
 
-.wall { position: relative; z-index: 2; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 104px var(--gutter) 190px; }
-.wall p { margin: 0; font-family: var(--display); font-size: clamp(36px, 4.7vw, 76px); line-height: 1.02; text-transform: uppercase; }
+.wall { position: relative; z-index: 2; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 96px var(--gutter) 170px; }
+.wall p { margin: 0; font-family: var(--display); font-size: clamp(30px, min(4.7vw, 6.4svh), 76px); line-height: 1.02; text-transform: uppercase; }
 .wall a { text-decoration: none; color: var(--ink); opacity: 0.34; transition: opacity 200ms ease, color 200ms ease; }
 .wall a.on, .wall a:focus-visible { opacity: 1; color: #fff; }
 .wall sup { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; vertical-align: top; margin-right: 4px; position: relative; top: 0.6em; }
