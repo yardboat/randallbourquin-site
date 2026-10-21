@@ -46,8 +46,11 @@ img { display: block; max-width: 100%; }
 .wall { display: flex; flex-direction: column; justify-content: space-between; padding: 32px var(--gutter) 22px; border-right: 1px solid var(--ink); min-width: 0; }
 .wall ol { list-style: none; margin: 0; padding: 0; font-family: var(--display); font-size: clamp(28px, min(3.7vw, 6.1svh), 64px); line-height: 1.06; text-transform: uppercase; }
 .wall li { display: inline; }
-.wall a { text-decoration: none; color: var(--mute); transition: color 160ms ease; }
-.wall a.on, .wall a:hover, .wall a:focus-visible { color: var(--ink); }
+.wall a { text-decoration: none; color: var(--ink); transition: color 160ms ease; }
+/* Everything reads in ink at rest; while browsing, the rest steps back so the active title pops. */
+.wall ol:hover a, .wall ol:focus-within a { color: var(--mute); }
+.wall ol:hover a.on, .wall ol:focus-within a.on, .wall a:hover { color: var(--ink); }
+.wall ol:hover a.philo, .wall ol:focus-within a.philo { color: var(--accent); }
 .wall sup { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; vertical-align: top; margin-right: 3px; position: relative; top: 0.55em; }
 .wall .sl { color: var(--accent); margin: 0 0.28em; }
 .wall a.philo { font-family: var(--serif); font-style: italic; text-transform: none; color: var(--accent); font-size: 1.12em; letter-spacing: -0.01em; }

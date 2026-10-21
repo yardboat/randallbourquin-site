@@ -24,7 +24,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
-  const posters = await Promise.all(p.videos.map(posterFor));
+  const raw = await Promise.all(p.videos.map(posterFor));
+  // A private or unlisted Vimeo may return no thumbnail: fall back to a sibling poster or the first still.
+  const fallback = raw.find(Boolean) ?? p.images[0] ?? null;
+  const posters = raw.map((x) => x ?? fallback);
   // With films, the poster is the hero; otherwise the first still is.
   const hero = p.videos.length ? null : await heroFor(p);
   const gallery = p.videos.length ? p.images : p.images.slice(1);

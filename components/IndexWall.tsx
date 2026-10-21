@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export type WallItem = {
   slug: string;
@@ -26,9 +26,20 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
   const cur = active === PHILO ? null : items[active];
 
   // Touch has no hover: first tap previews, second tap opens the case.
+  // Phones fire emulated mouseenter/focus before click, so remember the pointer type
+  // and whether this title was already active at pointerdown.
+  const ptr = useRef<string>("mouse");
+  const wasActive = useRef(false);
+  const down = (i: number) => (e: React.PointerEvent) => {
+    ptr.current = e.pointerType;
+    wasActive.current = i === active;
+  };
+  const preview = (i: number) => () => {
+    if (ptr.current !== "touch") setActive(i);
+  };
   function onTap(e: React.MouseEvent<HTMLAnchorElement>, i: number) {
-    const touch = (e.nativeEvent as PointerEvent).pointerType === "touch";
-    if (i === PHILO || (touch && i !== active)) {
+    const touch = ptr.current === "touch";
+    if (i === PHILO || (touch && !wasActive.current)) {
       e.preventDefault();
       setActive(i);
     }
@@ -46,8 +57,9 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
               <Link
                 href={`/work/${it.slug}`}
                 className={i === active ? "on" : ""}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
+                onPointerDown={down(i)}
+                onMouseEnter={preview(i)}
+                onFocus={preview(i)}
                 onClick={(e) => onTap(e, i)}
               >
                 <sup>{n(i)}</sup>
@@ -60,8 +72,9 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
             <a
               href="#philosophy"
               className={`philo${active === PHILO ? " on" : ""}`}
-              onMouseEnter={() => setActive(PHILO)}
-              onFocus={() => setActive(PHILO)}
+              onPointerDown={down(PHILO)}
+              onMouseEnter={preview(PHILO)}
+              onFocus={preview(PHILO)}
               onClick={(e) => onTap(e, PHILO)}
             >
               Philosophy
@@ -83,7 +96,8 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
                     src={it.hero}
                     alt={i === active ? it.wall : ""}
                     className={i === active ? "on" : ""}
-                    loading={i < 4 ? "eager" : "lazy"}
+                    loading="eager"
+                    fetchPriority={i === active ? "high" : "low"}
                     decoding="async"
                     onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
                   />
