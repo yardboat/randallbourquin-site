@@ -10,6 +10,8 @@ _Updated 2026-10-21_
 - Two Index art directions are on the canvas: A Broadsheet (newsprint, serif headlines, halftone lead story) and B After Dark (black, a full-bleed hover image, a condensed title wall).
 - Scaffolded: Next.js app, structured content for all 15 projects, routes `/`, `/work/[slug]`, `/worker`.
 
+- White-world redesign shipped to the preview (randallbourquin-site.vercel.app). QC pass done: all 16 routes return 200; the image-to-project mapping is verified; the touch preview bug is fixed; the keyboard focus order is fine.
+
 ## Next
 1. Randall picks A or B (or a mix).
 2. Build the Index in that direction, with case pages, a video facade and the Worker page.
