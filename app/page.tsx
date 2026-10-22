@@ -3,6 +3,7 @@ import IndexWall, { type WallItem } from "@/components/IndexWall";
 import { projects, manifesto, clients } from "@/content/projects";
 import { indexCopy } from "@/content/index-copy";
 import { heroFor } from "@/lib/media";
+import { introBootScript } from "@/lib/intro";
 
 export default async function Home() {
   const items: WallItem[] = await Promise.all(
@@ -23,6 +24,7 @@ export default async function Home() {
 
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: introBootScript }} />
       <a href="#work" className="skip">Skip to the work</a>
       <Header current="work" />
       <main id="work">
