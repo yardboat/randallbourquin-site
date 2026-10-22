@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import PaletteReview from "@/components/PaletteReview";
+import { paletteBootScript } from "@/lib/palette";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://randallbourquin.com"),
@@ -12,7 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: paletteBootScript }} />
+        {children}
+        <PaletteReview />
+      </body>
     </html>
   );
 }

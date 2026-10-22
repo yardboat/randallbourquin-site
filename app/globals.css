@@ -19,6 +19,11 @@
   --mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+/* Palette alternates (review). Each keeps text contrast: ink >15:1, accent >=4.5:1, dim >5:1. */
+html[data-palette="cobalt"]  { --bg: #f6f6f3; --ink: #101218; --dim: #5f6470; --mute: #868b96; --rule: #e1e2e4; --accent: #2a3fd6; }
+html[data-palette="racing"]  { --bg: #f5f2e9; --ink: #14201a; --dim: #5f665f; --mute: #878d84; --rule: #e0ddd2; --accent: #1d6a43; }
+html[data-palette="oxblood"] { --bg: #f3eee6; --ink: #1b1515; --dim: #6a5f5c; --mute: #8e8380; --rule: #e2dbd1; --accent: #8b1d2c; }
+
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--ink); }
 body { font-family: var(--mono); -webkit-font-smoothing: antialiased; }
@@ -112,6 +117,12 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 
 .intro-skip { position: fixed; z-index: 110; right: var(--gutter); top: 18px; background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
 .intro-skip-roll { top: auto; bottom: 18px; }
+.palette-review { position: fixed; z-index: 120; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: #141414; color: #faf8f4; padding: 6px; border-radius: 999px; font-size: 11px; }
+.palette-review > span { padding: 0 8px; color: #b9b2a6; }
+.palette-review a { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; padding: 7px 11px; border-radius: 999px; }
+.palette-review a:hover { background: #333; }
+.palette-review a[aria-current] { background: #faf8f4; color: #141414; }
+.palette-review i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #777; display: inline-block; }
 .intro-review { position: fixed; z-index: 120; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: var(--ink); color: var(--bg); padding: 6px; border-radius: 999px; font-size: 11px; }
 .intro-review > span { padding: 0 8px; color: #b9b2a6; }
 .intro-review a { text-decoration: none; padding: 7px 11px; border-radius: 999px; }
@@ -174,6 +185,7 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 @media (max-width: 860px) {
   .intro-sheet { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(5, minmax(0, 1fr)); }
   .intro-review { right: 12px; bottom: 64px; justify-content: center; border-radius: 14px; }
+  .palette-review { left: 12px; justify-content: center; border-radius: 14px; }
 }
 @media (max-width: 460px) {
   .hdr .who em { display: none; }
