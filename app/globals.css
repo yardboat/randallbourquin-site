@@ -145,6 +145,19 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 .facade .play { position: absolute; left: 20px; bottom: 20px; background: var(--bg); color: var(--ink); }
 .facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .vlabel { margin-top: 10px; color: var(--dim); }
+.pull { margin: 0 var(--gutter) 56px; padding: 40px 0 0; border-top: 1px solid var(--ink); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 16px; }
+.pull blockquote { grid-column: 3 / span 9; margin: 0; font-family: var(--serif); font-style: italic; color: var(--accent); font-size: clamp(30px, 3.6vw, 56px); line-height: 1.1; letter-spacing: -0.01em; }
+.pull figcaption { grid-column: 3 / span 9; }
+.pull figcaption a { text-decoration: none; color: var(--dim); }
+.pull figcaption a:hover { color: var(--accent); }
+.press { margin: 0 var(--gutter); padding: 32px 0 48px; border-top: 1px solid var(--rule); }
+.press .award { color: var(--accent); margin: 0 0 24px; }
+.press h2 { margin: 0 0 8px; color: var(--dim); font-weight: 400; }
+.press ul { list-style: none; margin: 0; padding: 0; }
+.press li a { display: grid; grid-template-columns: minmax(140px, 220px) 1fr; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.press li .label { color: var(--dim); }
+.press li .t { font-family: var(--serif); font-size: clamp(18px, 1.5vw, 22px); line-height: 1.25; }
+.press li a:hover .t { color: var(--accent); }
 .next { display: block; text-decoration: none; border-top: 1px solid var(--ink); padding: 40px var(--gutter) 56px; }
 .next .t { display: block; margin-top: 8px; font-family: var(--display); text-transform: uppercase; font-size: clamp(40px, 6vw, 96px); line-height: 0.95; }
 .next:hover .t { color: var(--accent); }
@@ -176,6 +189,8 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
   .case-hero { aspect-ratio: 4 / 3; }
   .case-body .side, .case-body .copy { grid-column: 1 / -1; }
   .media.two { grid-template-columns: 1fr; }
+  .pull blockquote, .pull figcaption { grid-column: 1 / -1; }
+  .press li a { grid-template-columns: 1fr; gap: 4px; }
 }
 @media (max-width: 860px) {
   .intro-sheet { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(5, minmax(0, 1fr)); }

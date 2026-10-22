@@ -72,7 +72,6 @@ export const projects: Project[] = [
     ],
     videos: [
       { provider: "youtube", id: "vxHYpTNrL6c", label: "The film · 12:00" },
-      { provider: "vimeo", id: "395312271", label: ":30" },
     ],
     images: [],
     color: "#24142F",
