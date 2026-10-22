@@ -161,12 +161,8 @@ export const extras: Record<string, Extras> = {
   },
 
   "smartwater-keep-it-smart": {
-    images: [
-      "https://www.fashiongonerogue.com/wp-content/uploads/2023/08/Zendaya-Smartwater-2023-Campaign.jpg",
-      "https://www.fashiongonerogue.com/wp-content/uploads/2023/08/Zendaya-Smartwater-2023-Hooded-Gown.jpg",
-      "https://www.fashiongonerogue.com/wp-content/uploads/2023/08/Zendaya-Blue-Minidress-Smartwater-2023-Campaign.jpg",
-      "https://www.fashiongonerogue.com/wp-content/uploads/2023/08/Zendaya-Smartwater-White-Cutout-Dress-2023-Campaign.jpg",
-    ],
+    videos: [{ provider: "youtube", id: "JJD_3q9Nfuw", label: "Keep it Smart, 2023" }],
+    images: ["https://www.coca-colacompany.com/content/dam/corporate/us/en/media-center/zendaya_smartwater_1440x810.png"],
     quote: {
       text: "It’s a celebration of creativity, where water becomes the spring of inspiration, and fashion flows in perfect harmony.",
       by: "Fashion Gone Rogue",

@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "ewscripps.brightspotcdn.com" },
       { protocol: "https", hostname: "s3.amazonaws.com", pathname: "/media.mediapost.com/**" },
       { protocol: "https", hostname: "images.ctfassets.net" },
-      { protocol: "https", hostname: "www.fashiongonerogue.com" },
+      { protocol: "https", hostname: "www.coca-colacompany.com" },
     ],
   },
 };
