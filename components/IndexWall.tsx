@@ -306,7 +306,7 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
       ) : null}
 
       {intro ? (
-        <button className="intro-skip label" onClick={finish}>
+        <button className={`intro-skip label intro-skip-${mode}`} onClick={finish}>
           Skip intro →
         </button>
       ) : null}

@@ -111,6 +111,7 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 .tile.philo { background: var(--bg); border: 1px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; color: var(--accent); font-size: clamp(28px, 3.2vw, 52px); }
 
 .intro-skip { position: fixed; z-index: 110; right: var(--gutter); top: 18px; background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+.intro-skip-roll { top: auto; bottom: 18px; }
 .intro-review { position: fixed; z-index: 120; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: var(--ink); color: var(--bg); padding: 6px; border-radius: 999px; font-size: 11px; }
 .intro-review > span { padding: 0 8px; color: #b9b2a6; }
 .intro-review a { text-decoration: none; padding: 7px 11px; border-radius: 999px; }
