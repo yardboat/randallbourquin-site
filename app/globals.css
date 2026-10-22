@@ -4,25 +4,32 @@
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
-/* White world */
+/* Cream + ultramarine, with Xerox texture */
 :root {
-  --bg: #faf8f4;
-  --ink: #141414;
-  --dim: #6b665e;        /* 5.4:1 on bg: small text */
-  --mute: #8c877e;       /* 3.4:1 on bg: large display text only */
-  --rule: #e2ded6;
-  --accent: #d23a1b;     /* 4.6:1 on bg */
+  --bg: #f2ecdf;
+  --ink: #16151a;
+  --dim: #665f55;        /* 5.4:1 on bg: small text */
+  --mute: #8b8478;       /* 3.1:1 on bg: large display text only */
+  --rule: #ddd5c5;
+  --accent: #22379b;     /* 8.5:1 on bg */
   --gutter: clamp(16px, 3vw, 44px);
   --hdr: 72px;
   --display: "Anton", "Impact", sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
   --mono: "JetBrains Mono", ui-monospace, monospace;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .09  0 0 0 0 .08  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Palette alternates (review). Each keeps text contrast: ink >15:1, accent >=4.5:1, dim >5:1. */
-html[data-palette="cobalt"]  { --bg: #f6f6f3; --ink: #101218; --dim: #5f6470; --mute: #868b96; --rule: #e1e2e4; --accent: #2a3fd6; }
-html[data-palette="racing"]  { --bg: #f5f2e9; --ink: #14201a; --dim: #5f665f; --mute: #878d84; --rule: #e0ddd2; --accent: #1d6a43; }
-html[data-palette="oxblood"] { --bg: #f3eee6; --ink: #1b1515; --dim: #6a5f5c; --mute: #8e8380; --rule: #e2dbd1; --accent: #8b1d2c; }
+/* Blue alternates (review). Same cream and ink; accent >= 8.5:1. */
+html[data-palette="prussian"] { --accent: #123a66; }
+html[data-palette="indigo"]   { --accent: #2b2c78; }
+
+/* Tactile layer: paper grain over everything, toner roughness on display type. */
+html::after { content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: var(--grain); background-size: 220px 220px; mix-blend-mode: multiply; opacity: 0.32; }
+.wall ol, .case-head h1, .worker h1, .next .t, .logos, .intro-bar .t { filter: url(#rb-toner); }
+html[data-texture="off"]::after { display: none; }
+html[data-texture="off"] .wall ol, html[data-texture="off"] .case-head h1, html[data-texture="off"] .worker h1, html[data-texture="off"] .next .t, html[data-texture="off"] .logos { filter: none; }
+@media print { html::after { display: none; } }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--ink); }

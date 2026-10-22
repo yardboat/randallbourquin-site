@@ -8,11 +8,13 @@ import { PALETTES } from "@/lib/palette";
 export default function PaletteReview() {
   const path = usePathname();
   const [on, setOn] = useState(false);
-  const [cur, setCur] = useState("signal");
+  const [cur, setCur] = useState("ultramarine");
+  const [tex, setTex] = useState(true);
   useEffect(() => {
     try {
       setOn(sessionStorage.getItem("rb-palette-review") === "1");
-      setCur(sessionStorage.getItem("rb-palette") ?? "signal");
+      setCur(sessionStorage.getItem("rb-palette") ?? "ultramarine");
+      setTex(sessionStorage.getItem("rb-texture") !== "off");
     } catch {}
   }, [path]);
   if (!on) return null;
@@ -26,6 +28,7 @@ export default function PaletteReview() {
           {p.name}
         </a>
       ))}
+      <a href={`${path}?texture=${tex ? "off" : "on"}`}>Texture: {tex ? "on" : "off"}</a>
     </nav>
   );
 }
