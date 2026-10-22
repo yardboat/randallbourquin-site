@@ -25,7 +25,7 @@ html[data-palette="prussian"] { --accent: #123a66; }
 html[data-palette="indigo"]   { --accent: #2b2c78; }
 
 /* Tactile layer: paper grain over everything, toner roughness on display type. */
-html::after { content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: var(--grain); background-size: 220px 220px; mix-blend-mode: multiply; opacity: 0.32; }
+html::after { content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: var(--grain); background-size: 220px 220px; mix-blend-mode: multiply; opacity: 0.18; }
 .wall ol, .case-head h1, .worker h1, .next .t, .logos, .intro-bar .t { filter: url(#rb-toner); }
 html[data-texture="off"]::after { display: none; }
 html[data-texture="off"] .wall ol, html[data-texture="off"] .case-head h1, html[data-texture="off"] .worker h1, html[data-texture="off"] .next .t, html[data-texture="off"] .logos { filter: none; }
