@@ -77,12 +77,15 @@ html[data-intro] #work { visibility: hidden; animation: rb-safety 0s 8s forwards
 html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden; animation: rb-safety 0s 8s forwards; }
 @keyframes rb-safety { to { visibility: visible; } }
 
-.wall li.pre a, .wall li.pre .sl { opacity: 0; top: 0.45em; }
+.wall li.pre a, .wall li.pre .sl { opacity: 0; top: 0.5em; }
 .wall .clients { transition: opacity 400ms ease; }
 .wall .clients.pre { opacity: 0; }
-.wall.intro a { color: var(--mute); }
-.wall.intro a.on { color: var(--ink); }
+.wall.intro-reel a, .wall.intro-sheet a { color: var(--mute); }
 .wall.intro a.philo { color: var(--accent); }
+/* Roll call: the panel holds still (blank paper) until the wall is complete, then fades in. */
+.panel > * { transition: opacity 500ms ease; }
+.panel.intro-roll > * { opacity: 0; }
+.panel.intro-roll .philosophy li { animation: none; }
 .panel.intro .frame img { transition-duration: 110ms; }
 .philosophy li { animation: rb-rise 360ms cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i, 0) * 30ms); }
 @keyframes rb-rise { from { opacity: 0; transform: translateY(8px); } }

@@ -13,7 +13,7 @@ _Updated 2026-10-21_
 - White-world redesign shipped to the preview (randallbourquin-site.vercel.app). QC pass done: all 16 routes return 200; the image-to-project mapping is verified; the touch preview bug is fixed; the keyboard focus order is fine.
 
 ## Next
-1. **Randall picks an intro** (review at `/?intro=reel`, `/?intro=roll`, `/?intro=sheet`). Then set `DEFAULT_INTRO` in `lib/intro.ts` (it plays once per session and is skipped under reduced motion) and remove the review toolbar.
+1. ~~Pick an intro~~: Roll call is shipped as the default.
 2. **Randall rewrites the Marriott case copy.** A reminder is scheduled for 2026-10-23 at 09:45 ET. This blocks launch.
 3. Re-host imagery to Vercel Blob (it currently hot-links Zyro). This blocks the DNS cutover.
 4. Independent QA-critic pass at 390px and 1440px.

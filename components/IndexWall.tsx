@@ -67,8 +67,8 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
     }
     setMode(m);
     setRevealed(0);
-    setActive(m === "roll" ? 0 : PHILO);
-    setPhase("load");
+    setActive(PHILO);
+    setPhase(m === "roll" ? "run" : "load"); // roll is type-only: no image preload
   }, [PHILO]);
 
   // Once React has rendered the intro state, lift the pre-paint mask.
@@ -119,19 +119,12 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
       at(t + 750, () => setPhase("out"));
       at(t + 1050, finish);
     } else if (mode === "roll") {
-      // Titles arrive one at a time; each lights up and takes over the panel.
-      const step = 200;
-      for (let k = 0; k < N; k++)
-        at(250 + k * step, () => {
-          setRevealed(k + 1);
-          setActive(k);
-        });
-      const tp = 250 + N * step + 150;
-      at(tp, () => {
-        setRevealed(ALL);
-        setActive(PHILO);
-      });
-      at(tp + 650, finish);
+      // Words only: titles arrive one at a time on a quiet page; the panel waits, then fades in.
+      const step = 110;
+      for (let k = 0; k < N; k++) at(200 + k * step, () => setRevealed(k + 1));
+      const tp = 200 + N * step + 120;
+      at(tp, () => setRevealed(ALL)); // Philosophy lands last
+      at(tp + 450, finish);
     } else {
       // Everything at once as a contact sheet, then each frame dissolves into its title.
       SCATTER.forEach((_, j) => at(150 + j * 65, () => setFrame(j + 1)));
@@ -189,7 +182,7 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
 
   return (
     <div className="index">
-      <section className={`wall${intro ? " intro" : ""}`} aria-labelledby="wall-h">
+      <section className={`wall${intro ? ` intro intro-${mode}` : ""}`} aria-labelledby="wall-h">
         <h2 id="wall-h" className="sr">All work</h2>
         <ol>
           {items.map((it, i) => (
@@ -224,7 +217,7 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
         <p className={`clients label${revealed < ALL ? " pre" : ""}`}>{clients}</p>
       </section>
 
-      <aside className={`panel${intro ? " intro" : ""}`} aria-live="polite">
+      <aside className={`panel${intro ? ` intro intro-${mode}` : ""}`} aria-live="polite">
         {cur ? (
           <>
             <div className="frame" style={{ ["--c" as string]: cur.color }}>

@@ -13,3 +13,4 @@
 - 2026-10-21 · Randall · **White world** replaces the black ground. Text never sits on images: the Index is a wall on paper plus a separate media panel.
 - 2026-10-21 · Randall · "Más…" is replaced by **Philosophy**, the emphasized last entry. It opens the manifesto and the E.B. White quote in the panel and is the default state. The client name-drop moves to a line under the wall. The below-the-fold section is removed.
 - 2026-10-21 · Fix (COO) · The 2026-01-04/05 screenshots belonged to Oakley Surf, not Crown Royal. Crown Royal now uses its film poster.
+- 2026-10-22 · Randall · Intro: **B — Roll call** is the default. Titles arrive one by one at 110ms (~2.3s total), type only. The panel stays blank during the roll and fades in at the end. It plays once per session and is off under reduced motion. Reel and Contact sheet remain reviewable at `/?intro=reel|sheet`.

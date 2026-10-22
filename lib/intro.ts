@@ -2,7 +2,7 @@
 // After Randall picks, set DEFAULT_INTRO and it plays once per browser session.
 export const INTRO_MODES = ["reel", "roll", "sheet"] as const;
 export type IntroMode = (typeof INTRO_MODES)[number];
-export const DEFAULT_INTRO: IntroMode | null = null;
+export const DEFAULT_INTRO: IntroMode | null = "roll"; // Randall, 2026-10-22
 
 export const INTRO_LABELS: Record<IntroMode, string> = {
   reel: "A · Reel",
