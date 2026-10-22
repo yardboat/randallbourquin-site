@@ -16,7 +16,8 @@ _Updated 2026-10-21_
 1. ~~Pick an intro~~: Roll call is shipped as the default.
 2. **Randall rewrites the Marriott case copy.** A reminder is scheduled for 2026-10-23 at 09:45 ET. This blocks launch.
 2b. ~~Palette~~: Prussian is locked and the switcher removed.
-2c. QA note: the Crown Royal :30 poster renders black (private Vimeo). Swap in a still.
+2c. ~~Crown Royal :30 poster~~: the clip was replaced with Stept's public Vimeo.
+2d. The scavenger hunt is shipped (content/extras.ts); 53/53 case images load on prod. Still thin: Real Madrid, WSL, TNF and Oakley Surf need Randall's files or leads. Randall to confirm Mahomes "Skye" vs "Sterling" and the Marriott "Inside The Collection" episodes.
 3. Re-host imagery to Vercel Blob (it currently hot-links Zyro). This blocks the DNS cutover.
 4. Independent QA-critic pass at 390px and 1440px.
 5. Cut DNS over from Hostinger (needs Randall live).
