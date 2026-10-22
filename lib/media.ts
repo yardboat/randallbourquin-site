@@ -2,6 +2,7 @@ import type { Project, Video } from "@/content/projects";
 
 /** Poster for a video. YouTube is deterministic; Vimeo is resolved via oEmbed at build time. */
 export async function posterFor(v: Video): Promise<string | null> {
+  if (v.poster) return v.poster;
   if (v.provider === "youtube") {
     // Not every upload has a maxres frame (YouTube serves a 120px placeholder with a 404); fall back.
     const max = `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`;

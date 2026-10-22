@@ -1,7 +1,7 @@
 // Single source of truth for the portfolio. Order = Randall's priority order (locked).
 // Copy is Randall's, verbatim, with typo fixes only (see .studio/DECISIONS.md).
 
-export type Video = { provider: "vimeo" | "youtube"; id: string; label?: string };
+export type Video = { provider: "vimeo" | "youtube"; id: string; label?: string; /** Optional poster override. */ poster?: string };
 
 export type Project = {
   slug: string;

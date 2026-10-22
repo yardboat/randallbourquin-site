@@ -110,7 +110,7 @@ export const extras: Record<string, Extras> = {
   },
 
   "oakley-mahomes": {
-    videos: [{ provider: "youtube", id: "1EEvxsHXtJk", label: "Signature Series 3 spot" }],
+    videos: [{ provider: "youtube", id: "1EEvxsHXtJk", label: "Signature Series 3 spot", poster: "/_next/image?url=" + encodeURIComponent("https://ewscripps.brightspotcdn.com/dims4/default/99ca51d/2147483647/strip/true/crop/1693x952+0+759/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F82%2F0a%2Ff616a157422286ad1603f2456a01%2Foakley-patrick-mahomes-ii-signature-series-3-campaign-image-4.jpg") + "&w=1920&q=75" }],
     images: [
       "https://ewscripps.brightspotcdn.com/dims4/default/99ca51d/2147483647/strip/true/crop/1693x952+0+759/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F82%2F0a%2Ff616a157422286ad1603f2456a01%2Foakley-patrick-mahomes-ii-signature-series-3-campaign-image-4.jpg",
       "https://ewscripps.brightspotcdn.com/dims4/default/6e5ec4b/2147483647/strip/true/crop/1440x810+0+391/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2Fde%2Fb0%2F830aa8b04a4d9a34f2eae5816bd9%2Foakley-patrick-mahomes-ii-signature-series-3-campaign-image-2.jpg",
