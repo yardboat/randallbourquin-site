@@ -15,7 +15,7 @@ _Updated 2026-10-21_
 ## Next
 1. ~~Pick an intro~~: Roll call is shipped as the default.
 2. **Randall rewrites the Marriott case copy.** A reminder is scheduled for 2026-10-23 at 09:45 ET. This blocks launch.
-2b. **Randall picks a palette** (review at `?palette=signal|cobalt|racing|oxblood`; it sticks across pages for the session). Then fold the winner into `:root` and remove the switcher.
+2b. Palette: blue on cream is shipped (Ultramarine is the default). Randall is confirming Ultramarine, Prussian or Indigo; then remove the switcher.
 2c. QA note: the Crown Royal :30 poster renders black (private Vimeo). Swap in a still.
 3. Re-host imagery to Vercel Blob (it currently hot-links Zyro). This blocks the DNS cutover.
 4. Independent QA-critic pass at 390px and 1440px.
