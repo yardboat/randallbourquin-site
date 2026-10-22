@@ -61,17 +61,20 @@ export default function IndexWall({ items, manifesto, clients }: Props) {
     const q = new URLSearchParams(location.search).get("intro") as IntroMode | null;
     if (q && INTRO_MODES.includes(q)) setReview(q);
     const m = document.documentElement.getAttribute("data-intro") as IntroMode | null;
-    if (!m || !INTRO_MODES.includes(m)) return;
+    if (!m || !INTRO_MODES.includes(m)) {
+      document.documentElement.removeAttribute("data-intro");
+      return;
+    }
     setMode(m);
     setRevealed(0);
     setActive(m === "roll" ? 0 : PHILO);
     setPhase("load");
   }, [PHILO]);
 
-  // Once React owns the intro state, lift the pre-paint mask.
+  // Once React has rendered the intro state, lift the pre-paint mask.
   useLayoutEffect(() => {
-    if (phase !== "off" || mode === null) document.documentElement.removeAttribute("data-intro");
-  }, [phase, mode]);
+    if (phase !== "off") document.documentElement.removeAttribute("data-intro");
+  }, [phase]);
 
   // Preload every hero (capped wait), then run.
   useEffect(() => {
