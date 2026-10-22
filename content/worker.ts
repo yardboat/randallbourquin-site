@@ -7,12 +7,12 @@ export const worker = {
     "Not-strategist: Vibe coder. Decent surfer. Above average essayist. Jellyfish of a puppy dad. The New Yorker disciple. Excelente en español. When I pick up a 35MM camera, it's amateur hour. But it's my amateur hour.",
   journey:
     "From the University of Georgia to Lima to NYC to LA to a remote office in Chattanooga, TN, home to Atlanta (and now to Seattle), I owe work a great debt for the Adventure of these logos:",
-  // The original logo files from the old site, in Randall's order.
+  // Logos in Randall's order. BBC and WSL use flat (unboxed) marks from Wikimedia Commons; the rest are the old site's files.
   logos: [
-    { name: "BBC World News", src: Z + "bbc-world-news-1920-YGIEwvzpMJDTALuq.webp" },
+    { name: "BBC World News", src: "https://commons.wikimedia.org/wiki/Special:FilePath/BBC_World_News_2022.svg" },
     { name: "Univision", src: Z + "logo_univision_2019-1-DRlGb25VNTD8Vb5R.svg" },
     { name: "WPP", src: Z + "logo_of_wpp_plc.svg-dssSmcMYrcSwcTEO.png" },
-    { name: "World Surf League", src: Z + "wsl_owler_20230701_124012_original-jLwbe64YPWDG6RN0.jpg" },
+    { name: "World Surf League", src: "https://commons.wikimedia.org/wiki/Special:FilePath/World_Surf_League_Logo_2020.png" },
     { name: "Stept Studios", src: Z + "stept-logo-black-Rige5rmmUjCsPXjf.webp" },
     { name: "U.S. Soccer", src: Z + "united_states_soccer_federation_logo_2016.svg-1bhF7a39SMMT931c.png" },
     { name: "Chobani", src: Z + "chobani_logo_2017-ub3UMYVP1hlWrdBD.png" },

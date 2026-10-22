@@ -24,3 +24,4 @@
 - 2026-10-22 · COO · Single-video cases are filled with 1280px frames from the films themselves (YouTube maxres1–3), picked by eye from a contact sheet. Added official, embeddable films for WSL ("We're Hiring") and Marriott Bonvoy ("Travel by Design"). Letterboxed frames are cropped to 2.39:1 (`#scope`).
 - 2026-10-22 · Flag for Randall · Mahomes: the Signature Series 3 press photos and KSHB link are removed until Randall confirms whether his film (BWYA x Mahomes) is the same campaign.
 - 2026-10-22 · Randall · Worker page: smaller headline, biography first, then the logo wall as images (the original logo files from the old site, unified to one ink), then the 35mm photos.
+- 2026-10-22 · Randall · Logo wall is in full color. BBC World News (2022 flat) and WSL (2020 emblem) are swapped for flat, unboxed marks from Wikimedia Commons.
