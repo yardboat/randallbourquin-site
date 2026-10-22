@@ -103,10 +103,11 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 .tile.in { opacity: 1; transform: none; }
 .tile.gone { opacity: 0; transform: scale(.94); }
 .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.intro-sheet.load::after { content: 'Randall Bourquin'; position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 .tile-n { position: absolute; left: 8px; top: 8px; background: var(--bg); color: var(--ink); padding: 3px 6px; font-size: 10px; }
 .tile.philo { background: var(--bg); border: 1px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; color: var(--accent); font-size: clamp(28px, 3.2vw, 52px); }
 
-.intro-skip { position: fixed; z-index: 110; right: var(--gutter); bottom: 18px; background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+.intro-skip { position: fixed; z-index: 110; right: var(--gutter); top: 18px; background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
 .intro-review { position: fixed; z-index: 120; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: var(--ink); color: var(--bg); padding: 6px; border-radius: 999px; font-size: 11px; }
 .intro-review > span { padding: 0 8px; color: #b9b2a6; }
 .intro-review a { text-decoration: none; padding: 7px 11px; border-radius: 999px; }
