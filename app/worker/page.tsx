@@ -9,31 +9,33 @@ export default function WorkerPage() {
     <>
       <Header current="worker" />
       <main>
+        {/* Biography first */}
         <section className="worker">
           <h1>
             New York work ethic. LA vibe. <em>Southern affect.</em>
           </h1>
-          <p className="lede">{worker.notStrategist}</p>
+          <div className="bio">
+            <p>{worker.notStrategist}</p>
+            <p>{worker.journey}</p>
+          </div>
         </section>
 
+        <ul className="logo-wall" aria-label="Where I've worked">
+          {worker.logos.map((l) => (
+            <li key={l.name}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={l.src} alt={l.name} loading="lazy" />
+            </li>
+          ))}
+        </ul>
+
+        {/* Then the photos */}
         <section className="roll" aria-label="35mm photos by Randall">
           {worker.photos.map((src, k) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={src} src={src} alt={`35mm photo ${k + 1} by Randall`} loading={k < 8 ? "eager" : "lazy"} />
           ))}
         </section>
-
-        <section className="worker" style={{ paddingTop: 16, paddingBottom: 16 }}>
-          <p className="lede" style={{ marginTop: 0 }}>{worker.journey}</p>
-        </section>
-        <p className="logos">
-          {worker.logos.map((l, k) => (
-            <span key={l}>
-              {l}
-              {k < worker.logos.length - 1 ? <span className="sl" aria-hidden="true">/</span> : null}
-            </span>
-          ))}
-        </p>
 
         <blockquote className="quote">
           “{quote.text}”
