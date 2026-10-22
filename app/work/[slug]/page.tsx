@@ -109,7 +109,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <section className={`media${gallery.length > 1 ? " two" : ""}`} aria-label="Stills">
             {gallery.map((src, k) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={opt(src, 1920)} alt={`${p.title}, still ${k + 1}`} loading="lazy" />
+              <img
+                key={src}
+                src={opt(src.replace(/#scope$/, ""), 1920)}
+                className={src.endsWith("#scope") ? "scope" : undefined}
+                alt={`${p.title}, still ${k + 1}`}
+                loading="lazy"
+              />
             ))}
           </section>
         ) : null}
