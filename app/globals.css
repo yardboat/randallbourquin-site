@@ -4,14 +4,14 @@
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
-/* Cream + ultramarine, with Xerox texture */
+/* Cream + Prussian blue, with a light Xerox texture */
 :root {
   --bg: #f2ecdf;
   --ink: #16151a;
   --dim: #665f55;        /* 5.4:1 on bg: small text */
   --mute: #8b8478;       /* 3.1:1 on bg: large display text only */
   --rule: #ddd5c5;
-  --accent: #22379b;     /* 8.5:1 on bg */
+  --accent: #123a66;     /* Prussian, 9.8:1 on bg */
   --gutter: clamp(16px, 3vw, 44px);
   --hdr: 72px;
   --display: "Anton", "Impact", sans-serif;
@@ -20,15 +20,9 @@
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .09  0 0 0 0 .08  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Blue alternates (review). Same cream and ink; accent >= 8.5:1. */
-html[data-palette="prussian"] { --accent: #123a66; }
-html[data-palette="indigo"]   { --accent: #2b2c78; }
-
 /* Tactile layer: paper grain over everything, toner roughness on display type. */
-html::after { content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: var(--grain); background-size: 220px 220px; mix-blend-mode: multiply; opacity: 0.18; }
+html::after { content: ""; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: var(--grain); background-size: 220px 220px; mix-blend-mode: multiply; opacity: 0.11; }
 .wall ol, .case-head h1, .worker h1, .next .t, .logos, .intro-bar .t { filter: url(#rb-toner); }
-html[data-texture="off"]::after { display: none; }
-html[data-texture="off"] .wall ol, html[data-texture="off"] .case-head h1, html[data-texture="off"] .worker h1, html[data-texture="off"] .next .t, html[data-texture="off"] .logos { filter: none; }
 @media print { html::after { display: none; } }
 
 * { box-sizing: border-box; }
@@ -124,12 +118,6 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 
 .intro-skip { position: fixed; z-index: 110; right: var(--gutter); top: 18px; background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
 .intro-skip-roll { top: auto; bottom: 18px; }
-.palette-review { position: fixed; z-index: 120; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: #141414; color: #faf8f4; padding: 6px; border-radius: 999px; font-size: 11px; }
-.palette-review > span { padding: 0 8px; color: #b9b2a6; }
-.palette-review a { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; padding: 7px 11px; border-radius: 999px; }
-.palette-review a:hover { background: #333; }
-.palette-review a[aria-current] { background: #faf8f4; color: #141414; }
-.palette-review i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #777; display: inline-block; }
 .intro-review { position: fixed; z-index: 120; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: var(--ink); color: var(--bg); padding: 6px; border-radius: 999px; font-size: 11px; }
 .intro-review > span { padding: 0 8px; color: #b9b2a6; }
 .intro-review a { text-decoration: none; padding: 7px 11px; border-radius: 999px; }
@@ -192,8 +180,7 @@ html[data-intro="reel"] .hdr, html[data-intro="sheet"] .hdr { visibility: hidden
 @media (max-width: 860px) {
   .intro-sheet { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(5, minmax(0, 1fr)); }
   .intro-review { right: 12px; bottom: 64px; justify-content: center; border-radius: 14px; }
-  .palette-review { left: 12px; justify-content: center; border-radius: 14px; }
-}
+  }
 @media (max-width: 460px) {
   .hdr .who em { display: none; }
   .hdr nav a { padding: 9px 11px; font-size: 12px; }
