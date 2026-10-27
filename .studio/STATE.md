@@ -1,7 +1,7 @@
 # STATE — Portfolio Redesign
-_Updated 2026-10-21_
+_Updated 2026-10-27_
 
-**Phase:** S1. The Brief is approved. Concept chosen: **The Index**. Art direction: **B — After Dark** (Randall, 2026-10-21).
+**Phase:** LIVE on randallbourquin.com (2026-10-27). Post-launch cleanup is below.
 
 ## Done this session
 - Interview, Brief and Gate A ("go", 2026-10-21).
@@ -20,4 +20,5 @@ _Updated 2026-10-21_
 2d. The scavenger hunt is shipped (content/extras.ts); 53/53 case images load on prod. Still thin: Real Madrid, WSL, TNF and Oakley Surf need Randall's files or leads. Randall to confirm Mahomes "Skye" vs "Sterling" and the Marriott "Inside The Collection" episodes.
 3. Re-host imagery to Vercel Blob (it currently hot-links Zyro). This blocks the DNS cutover.
 4. Independent QA-critic pass at 390px and 1440px.
-5. Cut DNS over from Hostinger (needs Randall live).
+5. ~~Cut DNS over from Hostinger~~: done 2026-10-27 (see DECISIONS for rollback values).
+6. Keep the Hostinger plan (it hosts email plus hot-linked Zyro images) until imagery is re-hosted. After that, the website-builder plan can be cancelled; keep email and the domain.
