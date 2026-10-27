@@ -25,3 +25,7 @@
 - 2026-10-22 · Flag for Randall · Mahomes: the Signature Series 3 press photos and KSHB link are removed until Randall confirms whether his film (BWYA x Mahomes) is the same campaign.
 - 2026-10-22 · Randall · Worker page: smaller headline, biography first, then the logo wall as images (the original logo files from the old site, unified to one ink), then the 35mm photos.
 - 2026-10-22 · Randall · Logo wall is in full color. BBC World News (2022 flat) and WSL (2020 emblem) are swapped for flat, unboxed marks from Wikimedia Commons.
+- 2026-10-27 · Randall · **Domain cutover started.** randallbourquin.com (apex) and www (308 → apex) are added and verified on the Vercel project. Hostinger email stays live (MX mx1/mx2.hostinger.com, SPF), so the nameservers are NOT moved. Only the web records change in Hostinger's DNS zone.
+  - Rollback values (pre-cutover): apex A 147.79.72.156, 147.79.79.5; AAAA 2a02:4780:4b:d7c8:f922:4ace:ba0c:df5d, 2a02:4780:4c:28e8:7127:508d:86df:d6b6; www CNAME www.randallbourquin.com.cdn.hstgr.net.
+  - Target: apex A 216.150.1.1 and 216.150.16.1 (delete both AAAA); www CNAME cb22e1b944287cb5.vercel-dns-016.com.
+  - Keep the Hostinger plan until images are re-hosted; the site still hot-links assets.zyrosite.com.
