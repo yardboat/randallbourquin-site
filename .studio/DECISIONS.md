@@ -30,3 +30,4 @@
   - Target: apex A 216.150.1.1 and 216.150.16.1 (delete both AAAA); www CNAME cb22e1b944287cb5.vercel-dns-016.com.
   - Keep the Hostinger plan until images are re-hosted; the site still hot-links assets.zyrosite.com.
 - 2026-10-27 · **LAUNCHED.** In Hostinger DNS, Randall deleted the ALIAS @; the COO added A @ 216.150.1.1 and 216.150.16.1 and repointed the www CNAME to cb22e1b944287cb5.vercel-dns-016.com. Mail records (MX, SPF, DMARC, DKIM, autodiscover/autoconfig) are untouched. Vercel certs are issued for the apex and www, and www 308-redirects to the apex. Verified on randallbourquin.com: 16/16 pages 200, 107/107 images load.
+- 2026-10-27 · Randall · Header is now the name only, "Randall Bourquin" ("is a strategist" removed).
