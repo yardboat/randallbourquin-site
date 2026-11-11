@@ -2,17 +2,18 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-export type RingItem = { href: string; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean };
+export type RingItem = { href: string; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean; heroSrc?: string; heroSrcSet?: string };
 
 const wrap = (d: number) => ((((d + 180) % 360) + 360) % 360) - 180;
 const HOLD = 2800; // ms each project holds the centre
 
 /**
- * The work as a ring you stand inside. One project at a time steps to the centre, comes toward the
- * camera and is named below; the rest curve away. Drag, arrows or click a side tile to turn it.
+ * The work as a ring you stand inside. Tiles curve past the camera in full colour and smear into
+ * glass at the edges (blur plus colour fringing). Whichever project is centred is shown whole, flat
+ * and sharp in the lens at the middle, and named below. Drag, arrows or click a tile to turn it.
  * Decorative for assistive tech: the "All work" list below is the accessible index.
  */
-export default function Ring({ items }: { items: RingItem[] }) {
+export default function Ring({ items, total }: { items: RingItem[]; total: number }) {
   const stage = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const api = useRef<{ go: (d: number) => void; to: (i: number) => void }>({ go() {}, to() {} });
@@ -43,13 +44,11 @@ export default function Ring({ items }: { items: RingItem[] }) {
       tilt += (tiltGoal - tilt) * Math.min(1, dt * 6);
       r.style.transform = `translateZ(var(--p)) rotateX(${tilt.toFixed(2)}deg) rotateY(${angle.toFixed(3)}deg)`;
       for (let i = 0; i < n; i++) {
-        const rel = wrap(angle - i * step), a = Math.abs(rel);
-        let e = Math.max(0, 1 - a / step); e = e * e * (3 - 2 * e); // 1 at centre, 0 one step away
-        const s = tiles[i].style;
-        s.visibility = a > 82 ? "hidden" : "visible";
-        s.transform = `rotateY(${-(i * step)}deg) translateZ(calc(var(--p) * ${(-(1 - 0.3 * e)).toFixed(4)}))`;
-        s.setProperty("--e", e.toFixed(3));
-        s.zIndex = e > 0.02 ? "2" : "1";
+        const a = Math.abs(wrap(angle - i * step));
+        const t = tiles[i];
+        t.style.visibility = a > 84 ? "hidden" : "visible";
+        const g = a > 70 ? "g3" : a > 58 ? "g2" : a > 45 ? "g1" : "";
+        if (t.dataset.g !== g) t.dataset.g = g;
       }
       const c = (((Math.round(angle / step) % n) + n) % n);
       if (c !== cur) { cur = c; setCenter(c); }
@@ -82,7 +81,7 @@ export default function Ring({ items }: { items: RingItem[] }) {
       const a = (e.target as HTMLElement).closest<HTMLElement>(".v2-card");
       if (!a) return;
       const i = tiles.indexOf(a);
-      if (i !== cur) { e.preventDefault(); api.current.to(i); } // side tiles come to the centre first
+      e.preventDefault(); api.current.to(i); // tiles come to the centre; the lens opens the case
     };
     const key = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") api.current.go(1);
@@ -116,23 +115,60 @@ export default function Ring({ items }: { items: RingItem[] }) {
   const c = items[center];
   return (
     <>
+      {/* Glass: horizontal smear with the red and blue channels pulled apart, in three strengths. */}
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
+        {[[1.4, 2], [3.2, 4.5], [6, 8]].map(([blur, dx], k) => (
+          <filter key={k} id={`rb-glass${k + 1}`} x="-25%" y="-6%" width="150%" height="112%" colorInterpolationFilters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation={`${blur} ${blur * 0.12}`} result="b" />
+            <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
+            <feOffset in="r" dx={-dx} result="ro" />
+            <feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g" />
+            <feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bl" />
+            <feOffset in="bl" dx={dx} result="bo" />
+            <feBlend in="ro" in2="g" mode="screen" result="rg" />
+            <feBlend in="rg" in2="bo" mode="screen" />
+          </filter>
+        ))}
+      </svg>
       <div className="v2-stage" ref={stage} aria-hidden="true">
         <div className="v2-ring" ref={ring}>
           {items.map((it, i) => (
-            <Link key={it.href} href={it.href} tabIndex={-1} draggable={false} className="v2-card" style={{ ["--c" as string]: it.color }}>
+            <Link key={i} href={it.href} tabIndex={-1} draggable={false} className="v2-card" style={{ transform: `rotateY(${-(i * step)}deg) translateZ(calc(var(--p) * -1))`, ["--c" as string]: it.color }}>
               <span className="ph">{it.title}</span>
               {it.src && (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={it.src} srcSet={it.srcSet} sizes="(max-width: 860px) 60vw, 28vw" alt="" draggable={false} className={it.scope ? "scope" : ""} onError={(e) => (e.currentTarget.style.display = "none")} />
+                <img src={it.src} alt="" draggable={false} className={it.scope ? "scope" : ""} onError={(e) => (e.currentTarget.style.display = "none")} />
               )}
             </Link>
           ))}
         </div>
+        <Link href={c.href} tabIndex={-1} draggable={false} className="v2-lens">
+          {items.map((it, i) => {
+            const d = Math.min(Math.abs(i - center), n - Math.abs(i - center));
+            if (d > 1) return null; // current plus neighbours, so the next one is already loaded
+            return (
+              <span key={i} className={"shot" + (i === center ? " on" : "")} style={{ ["--c" as string]: it.color }}>
+                {it.heroSrc ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="fill" src={it.src} alt="" draggable={false} />
+                    <span className={"whole" + (it.scope ? " scope" : "")}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={it.heroSrc} srcSet={it.heroSrcSet} sizes="(max-width: 860px) 70vw, 30vw" alt="" draggable={false} />
+                    </span>
+                  </>
+                ) : (
+                  <b>{it.title}</b>
+                )}
+              </span>
+            );
+          })}
+        </Link>
       </div>
       <div className="v2-now">
         <button type="button" className="v2-arrow" aria-label="Previous project" onClick={() => api.current.go(-1)}>←</button>
-        <Link href={c.href} className="v2-nowlink" key={center}>
-          <span className="label n">{c.n} <i>/ {String(n).padStart(2, "0")}</i> · {c.client}</span>
+        <Link href={c.href} className="v2-nowlink" key={c.href}>
+          <span className="label n">{c.n} <i>/ {String(total).padStart(2, "0")}</i> · {c.client}</span>
           <span className="t">{c.title}</span>
           <span className="label k">{c.tag}</span>
           <span className="pill">Open the case</span>

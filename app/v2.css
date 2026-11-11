@@ -21,22 +21,35 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-name > span:nth-child(2) b { animation-delay: 90ms; }
 @keyframes v2-up { from { transform: translateY(105%); } }
 
-/* The camera sits at the centre of a cylinder of radius --p. Side tiles curve away; the centre one steps toward the lens. */
-.v2-stage { --p: 30vw; --w: calc(var(--p) * 0.43); position: relative; height: calc(var(--w) * 2.15); margin-top: clamp(0px, 0.6vw, 10px); perspective: var(--p); perspective-origin: 50% 50%; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; animation: v2-fade 900ms 150ms ease both; }
+/* The camera sits at the centre of a cylinder of radius --p: tiles curve away in the middle and swing in at the edges. */
+.v2-stage { --p: 30vw; --w: calc(var(--p) * 0.139); --lens: 23vw; position: relative; height: calc(var(--lens) * 0.75 + 5vw); margin-top: clamp(0px, 0.4vw, 8px); perspective: var(--p); perspective-origin: 50% 50%; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; animation: v2-fade 900ms 150ms ease both; }
 .v2-stage.dragging { cursor: grabbing; }
 @keyframes v2-fade { from { opacity: 0; } }
 .v2-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(var(--p)); will-change: transform; }
-.v2-card { --e: 0; position: absolute; left: 50%; top: 50%; width: var(--w); aspect-ratio: 4 / 5; margin: calc(var(--w) * -0.625) 0 0 calc(var(--w) * -0.5); border-radius: 3px; overflow: hidden; background: var(--c, #ccc); backface-visibility: hidden; -webkit-user-drag: none;
-  box-shadow: 0 calc(var(--e) * 26px) calc(var(--e) * 60px) calc(var(--e) * -18px) rgba(22, 21, 26, .55); }
-.v2-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; color: transparent; -webkit-user-drag: none; filter: saturate(calc(.55 + var(--e) * .5)) brightness(calc(.93 + var(--e) * .07)); }
+.v2-card { position: absolute; left: 50%; top: 50%; width: var(--w); aspect-ratio: 2 / 3; margin: calc(var(--w) * -0.75) 0 0 calc(var(--w) * -0.5); border-radius: 6%/4%; overflow: hidden; background: var(--c, #ccc); backface-visibility: hidden; -webkit-user-drag: none; }
+.v2-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; color: transparent; -webkit-user-drag: none; }
 .v2-card img.scope { scale: 1.36; }
-.v2-card .ph { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 8%; text-align: left; font-family: var(--display); text-transform: uppercase; font-size: calc(var(--w) * 0.15); line-height: 0.92; color: var(--bg); }
-/* A cream veil that lifts off whichever project is centred. */
-.v2-card::after { content: ""; position: absolute; inset: 0; background: var(--bg); opacity: calc(.34 * (1 - var(--e))); pointer-events: none; }
-/* Depth of field at the edges, as the tiles pass the lens. */
-.v2-stage::before, .v2-stage::after { content: ""; position: absolute; top: -10%; bottom: -10%; width: 16vw; z-index: 3; pointer-events: none; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.v2-stage::before { left: 0; mask-image: linear-gradient(90deg, #000 25%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 25%, transparent); }
-.v2-stage::after { right: 0; mask-image: linear-gradient(270deg, #000 25%, transparent); -webkit-mask-image: linear-gradient(270deg, #000 25%, transparent); }
+.v2-card .ph { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 8%; text-align: left; font-family: var(--display); text-transform: uppercase; font-size: calc(var(--w) * 0.2); line-height: 0.92; color: var(--bg); }
+/* Glass at the edges: the work stays in full colour, then smears and splits into colour as it passes the lens. */
+.v2-card[data-g="g1"] { filter: url(#rb-glass1); }
+.v2-card[data-g="g2"] { filter: url(#rb-glass2) brightness(1.05); }
+.v2-card[data-g="g3"] { filter: url(#rb-glass3) brightness(1.1); }
+.v2-stage::before, .v2-stage::after { content: ""; position: absolute; top: -12%; bottom: -12%; width: 9vw; z-index: 4; pointer-events: none; backdrop-filter: blur(10px) saturate(1.4) brightness(1.06); -webkit-backdrop-filter: blur(10px) saturate(1.4) brightness(1.06); }
+.v2-stage::before { left: 0; mask-image: linear-gradient(90deg, #000 20%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 20%, transparent); }
+.v2-stage::after { right: 0; mask-image: linear-gradient(270deg, #000 20%, transparent); -webkit-mask-image: linear-gradient(270deg, #000 20%, transparent); }
+
+/* The lens: the centred project, whole and sharp. Nothing is cropped; a soft copy of the image fills behind it. */
+.v2-lens { position: absolute; left: 50%; top: 50%; z-index: 3; width: var(--lens); aspect-ratio: 4 / 3; translate: -50% -50%; border-radius: calc(var(--lens) * 0.085); overflow: hidden; background: var(--ink); box-shadow: 0 0 0 1px rgba(22, 21, 26, .55), 0 34px 70px -26px rgba(22, 21, 26, .6); -webkit-user-drag: none; }
+.v2-lens .shot { position: absolute; inset: 0; background: var(--c, #222); opacity: 0; transition: opacity 420ms ease; }
+.v2-lens .shot.on { opacity: 1; z-index: 1; }
+.v2-lens .fill { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(22px) saturate(1.2) brightness(.82); color: transparent; }
+.v2-lens .whole { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.v2-lens .whole img { width: 100%; height: 100%; object-fit: contain; color: transparent; transform: scale(1.04); transition: transform 900ms var(--ease); }
+.v2-lens .shot.on .whole img { transform: none; }
+.v2-lens .whole.scope { inset: auto 0; top: 50%; translate: 0 -50%; aspect-ratio: 2.39 / 1; overflow: hidden; }
+.v2-lens .whole.scope img { object-fit: cover; }
+.v2-lens b { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 8%; text-align: left; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: calc(var(--lens) * 0.13); line-height: .92; color: var(--bg); }
+.v2-lens::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 1px 0 rgba(255, 255, 255, .5); }
 
 /* The centred project, named */
 .v2-now { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 3vw, 48px); margin-top: clamp(6px, 1vw, 16px); padding: 0 var(--gutter); }
@@ -132,7 +145,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
   .v2 .hdr .who { animation: none; visibility: hidden; }
   .v2-hero { padding-top: 14px; }
   .v2-name { font-size: 12.6vw; }
-  .v2-stage { --p: 74vw; }
+  .v2-stage { --p: 74vw; --lens: 68vw; }
   .v2-arrow { display: none; }
   .v2-now .t { white-space: normal; font-size: 8.6vw; min-height: 1.9em; display: flex; align-items: center; text-wrap: balance; }
   .v2-hint span { display: none; }

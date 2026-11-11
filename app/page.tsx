@@ -40,13 +40,16 @@ export default async function Home() {
   const leads = LEADS.map((s) => all.find((x) => x.p.slug === s)!).filter(Boolean);
 
   // Ring and index: exactly the 14 projects, in the locked order, one tile each.
-  const ringItems: RingItem[] = all.map((x) => {
-    const f = x.stills[0] ? frame(x.stills[0], true) : undefined;
-    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: f?.src, srcSet: f?.srcSet, scope: f?.scope };
-  });
+  const card = (x: (typeof all)[number], k: number): RingItem => {
+    const raw = x.stills.length ? x.stills[k % x.stills.length] : undefined;
+    const small = raw ? frame(raw, false) : undefined, big = raw ? frame(raw, true) : undefined;
+    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: small?.src, scope: small?.scope, heroSrc: big?.src, heroSrcSet: big?.srcSet };
+  };
+  // Three laps of the 14, in order: each lap shows the project's next still.
+  const ringItems: RingItem[] = [0, 1, 2].flatMap((k) => all.map((x) => card(x, k)));
   const rows: Row[] = all.map((x, k) => {
     const f = x.stills[0] ? frame(x.stills[0], false) : undefined;
-    return { ...ringItems[k], src: f?.src, scope: f?.scope };
+    return { ...ringItems[k], src: f?.src, scope: f?.scope, heroSrc: undefined, heroSrcSet: undefined };
   });
 
   return (
@@ -59,7 +62,7 @@ export default async function Home() {
           <h1 className="v2-name">
             <span><b>Randall</b></span> <span><b>Bourquin</b></span>
           </h1>
-          <Ring items={ringItems} />
+          <Ring items={ringItems} total={all.length} />
           <div className="v2-hint label"><span>Drag, or use ← →</span><MotionToggle /><a href="#leads">Scroll for the work ↓</a></div>
         </section>
 
