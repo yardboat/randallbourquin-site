@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import FrameLoop, { type Frame } from "@/components/v2/FrameLoop";
 import MotionToggle from "@/components/v2/MotionToggle";
 import Ring, { type RingItem } from "@/components/v2/Ring";
+import WorkIndex, { type Row } from "@/components/v2/WorkIndex";
 import { projects, manifesto, clients, quote, type Project } from "@/content/projects";
 import { extras } from "@/content/extras";
 import { indexCopy } from "@/content/index-copy";
@@ -38,14 +39,15 @@ export default async function Home() {
   );
   const leads = LEADS.map((s) => all.find((x) => x.p.slug === s)!).filter(Boolean);
 
-  // Ring: all 14 in order, then second stills from the leads to complete the circle.
-  const card = (x: (typeof all)[number], k: number): RingItem => {
-    const raw = x.stills[k] ?? x.stills[0];
-    const f = raw ? frame(raw, false) : undefined;
-    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: f?.src, srcSet: f?.srcSet, scope: f?.scope };
-  };
-  const seconds = all.filter((x) => x.stills.length > 1 && (LEADS.includes(x.p.slug) || x.p.slug === "us-soccer-deaf-double-header")).slice(0, 6);
-  const ringItems: RingItem[] = [...all.map((x) => card(x, 0)), ...seconds.map((x) => card(x, 1))];
+  // Ring and index: exactly the 14 projects, in the locked order, one tile each.
+  const ringItems: RingItem[] = all.map((x) => {
+    const f = x.stills[0] ? frame(x.stills[0], true) : undefined;
+    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: f?.src, srcSet: f?.srcSet, scope: f?.scope };
+  });
+  const rows: Row[] = all.map((x, k) => {
+    const f = x.stills[0] ? frame(x.stills[0], false) : undefined;
+    return { ...ringItems[k], src: f?.src, scope: f?.scope };
+  });
 
   return (
     <div className="v2">
@@ -54,15 +56,11 @@ export default async function Home() {
       <main>
         {/* Name, then the work in motion */}
         <section className="v2-hero" aria-label="Randall Bourquin">
-          <div className="v2-top">
-            <span className="label">Work, {all.length} projects</span>
-            <MotionToggle />
-          </div>
           <h1 className="v2-name">
             <span><b>Randall</b></span> <span><b>Bourquin</b></span>
           </h1>
           <Ring items={ringItems} />
-          <p className="v2-hint label">Drag to spin · <a href="#leads">See the work ↓</a></p>
+          <div className="v2-hint label"><span>Drag, or use ← →</span><MotionToggle /><a href="#leads">Scroll for the work ↓</a></div>
         </section>
 
         {/* Five lead cases */}
@@ -94,19 +92,7 @@ export default async function Home() {
         {/* The full index, in order */}
         <section className="v2-index" aria-label="All work" data-reveal>
           <h2 className="label">All work</h2>
-          <ol>
-            {all.map(({ p, i, copy }) => (
-              <li key={p.slug}>
-                <Link href={`/work/${p.slug}`}>
-                  <span className="label n">{n2(i)}</span>
-                  <span className="t">{copy?.wall ?? p.title}</span>
-                  <span className="label c">{p.client}</span>
-                  <span className="label k">{copy?.caption ?? p.tag}</span>
-                  <span className="arr" aria-hidden="true">→</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
+          <WorkIndex rows={rows} />
           <p className="clients">{clients}</p>
         </section>
 
