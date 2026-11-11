@@ -40,6 +40,7 @@ export default async function Home() {
       <li key={p.slug + (dup ? "-b" : "")} aria-hidden={dup || undefined}>
         <Link href={`/work/${p.slug}`} className="v2-tile" tabIndex={dup ? -1 : undefined}>
           <span className="pic" style={{ ["--c" as string]: p.color }}>
+            {!stills[0] && <span className="ph" aria-hidden="true">{copy?.wall ?? p.title}</span>}
             {stills[0] && (
               // eslint-disable-next-line @next/next/no-img-element
               <img {...frame(stills[0], false)} sizes="(max-width: 860px) 72vw, 30vw" alt="" loading={i < 4 && !dup ? "eager" : "lazy"} className={stills[0].endsWith("#scope") ? "scope" : ""} />

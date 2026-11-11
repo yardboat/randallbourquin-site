@@ -3,10 +3,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://randallbourquin.com"),
-  title: { default: "Randall Bourquin — Brand strategist", template: "%s — Randall Bourquin" },
+  title: { default: "Randall Bourquin", template: "%s — Randall Bourquin" },
   description:
-    "Randall Bourquin is a brand strategist. Gold Peak, Crown Royal, Chobani, U.S. Soccer, The North Face, Got Milk? and more.",
-  openGraph: { title: "Randall Bourquin — Brand strategist", type: "website" },
+    "Randall Bourquin. Work for Ford, Chobani, Gold Peak, Crown Royal, U.S. Soccer, The North Face, Got Milk? and more.",
+  openGraph: { title: "Randall Bourquin", type: "website" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
