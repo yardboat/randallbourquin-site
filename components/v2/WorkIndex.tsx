@@ -19,7 +19,8 @@ export default function WorkIndex({ rows }: { rows: Row[] }) {
       f.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${rot.toFixed(2)}deg)`;
       raf = requestAnimationFrame(tick);
     };
-    const move = (e: PointerEvent) => { tx = e.clientX; ty = e.clientY; };
+    // Coordinates are relative to the section, which is the float's containing block.
+    const move = (e: PointerEvent) => { const b = f.parentElement!.getBoundingClientRect(); tx = e.clientX - b.left; ty = e.clientY - b.top; };
     l.addEventListener("pointermove", move);
     raf = requestAnimationFrame(tick);
     return () => { l.removeEventListener("pointermove", move); cancelAnimationFrame(raf); };
