@@ -23,7 +23,9 @@ const frame = (raw: string, big: boolean): Frame => {
 
 async function stills(p: Project): Promise<string[]> {
   const ex = extras[p.slug] ?? {};
-  const posters = (await Promise.all([...p.videos, ...(ex.videos ?? [])].map(posterFor))).filter((x): x is string => !!x);
+  // Posters that arrive letterboxed get the same crop as the #scope film frames.
+  const boxed = ["ford-bronco"].includes(p.slug);
+  const posters = (await Promise.all([...p.videos, ...(ex.videos ?? [])].map(posterFor))).filter((x): x is string => !!x).map((x) => (boxed ? x + "#scope" : x));
   const all = [...p.images.slice(0, 1), ...posters.slice(0, 1), ...(ex.images ?? []), ...p.images.slice(1), ...posters.slice(1)];
   return [...new Set(all)].slice(0, 5);
 }

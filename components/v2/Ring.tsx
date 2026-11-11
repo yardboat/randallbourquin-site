@@ -21,21 +21,21 @@ export default function Ring({ items }: { items: RingItem[] }) {
     const el = stage.current!, r = ring.current!;
     const tiles = [...r.children] as HTMLElement[];
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let angle = 0, vel = 0, hover = false, drag = false, lastX = 0, moved = 0, last = performance.now(), raf = 0, cur = -1, drift = reduce ? 0 : -3.2;
+    let angle = 0, vel = 0, hover = false, drag = false, lastX = 0, moved = 0, last = performance.now(), raf = 0, cur = -1, drift = reduce ? 0 : 3.2;
     const degPerPx = () => 57.3 / (parseFloat(getComputedStyle(el).perspective) || 460);
 
     const frame = (t: number) => {
       const dt = Math.min(0.05, (t - last) / 1000); last = t;
       const paused = document.documentElement.dataset.motion === "off";
-      const target = reduce || paused || hover || drag ? 0 : -3.2;
+      const target = reduce || paused || hover || drag ? 0 : 3.2;
       drift += (target - drift) * Math.min(1, dt * 4);
       if (!drag) { angle += (drift + vel) * dt; vel *= Math.pow(0.04, dt); }
       r.style.transform = `translateZ(var(--p)) rotateY(${angle.toFixed(3)}deg)`;
       for (let i = 0; i < tiles.length; i++) {
-        const rel = Math.abs(wrap(i * step + angle));
+        const rel = Math.abs(wrap(angle - i * step));
         tiles[i].style.visibility = rel > 80 ? "hidden" : "visible";
       }
-      const c = ((Math.round(-angle / step) % items.length) + items.length) % items.length;
+      const c = ((Math.round(angle / step) % items.length) + items.length) % items.length;
       if (c !== cur) { cur = c; setCenter(c); }
       raf = requestAnimationFrame(frame);
     };
