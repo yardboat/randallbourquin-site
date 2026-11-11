@@ -30,7 +30,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(var(--p)); will-change: transform; }
 .v2-card { position: absolute; left: 50%; top: 50%; width: var(--w); aspect-ratio: 3 / 4; margin: calc(var(--w) * -0.667) 0 0 calc(var(--w) * -0.5); border-radius: 3px; overflow: hidden; background: var(--c, #ccc); backface-visibility: hidden; }
 .v2-card img { width: 100%; height: 100%; object-fit: cover; color: transparent; transition: scale 500ms var(--ease), filter 300ms ease; -webkit-user-drag: none; }
-.v2-card img.scope { scale: 1.34; }
+.v2-card img.scope { scale: 1.36; }
 .v2-card:hover img { scale: 1.08; }
 .v2-card:hover img.scope { scale: 1.42; }
 .v2-card .ph { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 8%; text-align: left; font-family: var(--display); text-transform: uppercase; font-size: calc(var(--w) * 0.17); line-height: 0.92; color: var(--bg); }
@@ -59,6 +59,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-loop { position: absolute; inset: 0; }
 .v2-loop img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.001); transition: opacity 700ms ease, transform 3600ms linear; }
 .v2-loop img.on { opacity: 1; transform: scale(1.07); }
+.v2-loop img.scope { scale: 1.36; }
 .v2-ticks { position: absolute; left: 14px; bottom: 14px; display: flex; gap: 4px; }
 .v2-ticks i { width: 18px; height: 2px; background: rgba(255, 255, 255, .45); }
 .v2-ticks i.on { background: #fff; }
