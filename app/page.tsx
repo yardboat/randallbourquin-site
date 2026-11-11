@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import FrameLoop, { type Frame } from "@/components/v2/FrameLoop";
 import MotionToggle from "@/components/v2/MotionToggle";
+import Ring, { type RingItem } from "@/components/v2/Ring";
 import { projects, manifesto, clients, quote, type Project } from "@/content/projects";
 import { extras } from "@/content/extras";
 import { indexCopy } from "@/content/index-copy";
@@ -35,25 +36,14 @@ export default async function Home() {
   );
   const leads = LEADS.map((s) => all.find((x) => x.p.slug === s)!).filter(Boolean);
 
-  const tiles = (dup: boolean) =>
-    all.map(({ p, i, copy, stills }) => (
-      <li key={p.slug + (dup ? "-b" : "")} aria-hidden={dup || undefined}>
-        <Link href={`/work/${p.slug}`} className="v2-tile" tabIndex={dup ? -1 : undefined}>
-          <span className="pic" style={{ ["--c" as string]: p.color }}>
-            {!stills[0] && <span className="ph" aria-hidden="true">{copy?.wall ?? p.title}</span>}
-            {stills[0] && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img {...frame(stills[0], false)} sizes="(max-width: 860px) 72vw, 30vw" alt="" loading={i < 4 && !dup ? "eager" : "lazy"} className={stills[0].endsWith("#scope") ? "scope" : ""} />
-            )}
-          </span>
-          <span className="cap">
-            <span className="label n">{n2(i)}</span>
-            <span className="t">{copy?.wall ?? p.title}</span>
-            <span className="label k">{copy?.caption ?? p.tag}</span>
-          </span>
-        </Link>
-      </li>
-    ));
+  // Ring: all 14 in order, then second stills from the leads to complete the circle.
+  const card = (x: (typeof all)[number], k: number): RingItem => {
+    const raw = x.stills[k] ?? x.stills[0];
+    const f = raw ? frame(raw, false) : undefined;
+    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: f?.src, srcSet: f?.srcSet, scope: f?.scope };
+  };
+  const seconds = all.filter((x) => x.stills.length > 1 && (LEADS.includes(x.p.slug) || x.p.slug === "us-soccer-deaf-double-header")).slice(0, 6);
+  const ringItems: RingItem[] = [...all.map((x) => card(x, 0)), ...seconds.map((x) => card(x, 1))];
 
   return (
     <div className="v2">
@@ -69,12 +59,8 @@ export default async function Home() {
           <h1 className="v2-name">
             <span><b>Randall</b></span> <span><b>Bourquin</b></span>
           </h1>
-          <div className="v2-mq">
-            <ul className="track">
-              {tiles(false)}
-              {tiles(true)}
-            </ul>
-          </div>
+          <Ring items={ringItems} />
+          <p className="v2-hint label">Drag to spin · <a href="#leads">See the work ↓</a></p>
         </section>
 
         {/* Five lead cases */}
