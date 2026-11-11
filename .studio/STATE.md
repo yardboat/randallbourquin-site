@@ -1,7 +1,12 @@
 # STATE — Portfolio Redesign
-_Updated 2026-10-27_
+_Updated 2026-11-10_
 
 **Phase:** LIVE on randallbourquin.com (2026-10-27). Post-launch cleanup is below.
+
+## v2 (2026-11-10)
+- v1 is live from `main` (e14e055) and archived on branch `v1-archive`; Vercel production deployment dpl_2GHqzqEW2bAHwDiLijbuqhSaScTZ is the rollback target.
+- v2 homepage is on branch `v2`, preview: randallbourquin-site-git-v2-yardboat-s-projects.vercel.app. Not merged.
+- Open: Randall's review; confirm Got Milk as fifth lead; source files for true footage loops; case pages and Worker still use the v1 look; Real Madrid has no still.
 
 ## Done this session
 - Interview, Brief and Gate A ("go", 2026-10-21).
