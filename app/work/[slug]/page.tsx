@@ -24,6 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const n2 = (k: number) => String(k + 1).padStart(2, "0");
 
+// Widths must be ones Next's optimizer allows (its deviceSizes), or it answers 400.
+const WIDTHS = [828, 1200, 1920];
+const srcSet = (raw: string) => WIDTHS.map((w) => `${opt(raw, w)} ${w}w`).join(", ");
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const i = projects.findIndex((x) => x.slug === slug);
@@ -143,7 +147,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               {gallery.map((src, k) => (
                 <span key={src} className={`c-shot${src.endsWith("#scope") ? " scope" : ""}`} style={{ ["--c" as string]: p.color }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={opt(src.replace(/#scope$/, ""), 1600)} alt={`${p.title}, still ${k + 1}`} loading="lazy" />
+                  <img
+                    src={opt(src.replace(/#scope$/, ""), 1920)}
+                    srcSet={srcSet(src.replace(/#scope$/, ""))}
+                    sizes={gallery.length > 1 ? "(max-width: 860px) 100vw, 50vw" : "100vw"}
+                    alt={`${p.title}, still ${k + 1}`}
+                    loading="lazy"
+                  />
                 </span>
               ))}
             </div>
