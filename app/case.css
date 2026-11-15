@@ -81,8 +81,6 @@
 .w-logos { list-style: none; margin: 0; padding: clamp(20px, 2.6vw, 40px) var(--gutter) clamp(26px, 3.4vw, 52px); display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(16px, 2vw, 32px); align-items: center; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
 .w-logos li { display: flex; align-items: center; justify-content: center; height: clamp(40px, 4vw, 64px); }
 .w-logos img { max-height: 100%; max-width: 100%; width: auto; object-fit: contain; mix-blend-mode: multiply; transition: opacity 240ms ease; }
-/* Marks that ship as white artwork would vanish on cream, so they are rendered as solid ink. */
-.w-logos img.ink { mix-blend-mode: normal; filter: brightness(0) saturate(100%); opacity: .88; }
 .w-roll { columns: 4 230px; column-gap: clamp(10px, 1.2vw, 18px); padding: clamp(26px, 3.4vw, 56px) var(--gutter) clamp(20px, 2.4vw, 36px); }
 .w-roll img { width: 100%; height: auto; margin: 0 0 clamp(10px, 1.2vw, 18px); break-inside: avoid; border-radius: 3px; color: transparent; }
 .w-quote { margin: 0; padding: clamp(28px, 4vw, 72px) var(--gutter) clamp(36px, 5vw, 88px); border-top: 1px solid var(--ink); font-family: var(--serif); font-style: italic; font-size: clamp(24px, 2.9vw, 48px); line-height: 1.16; max-width: 30ch; text-wrap: balance; }

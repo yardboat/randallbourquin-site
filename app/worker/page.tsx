@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import { worker } from "@/content/worker";
+import { opt } from "@/lib/intro";
 import { quote } from "@/content/projects";
 import "@/app/v2.css";
 import "@/app/case.css";
@@ -27,8 +28,9 @@ export default function WorkerPage() {
         <ul className="w-logos" aria-label="Where I've worked">
           {worker.logos.map((l) => (
             <li key={l.name}>
+              {/* Through the optimizer: the Wikimedia marks redirect, and a raw hotlink arrives late. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={l.src} alt={l.name} loading="lazy" className={l.ink ? "ink" : undefined} />
+              <img src={opt(l.src, 384)} alt={l.name} />
             </li>
           ))}
         </ul>

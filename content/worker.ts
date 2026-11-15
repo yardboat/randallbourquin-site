@@ -1,7 +1,7 @@
 // Worker (about) page content — Randall's copy, verbatim.
 const Z = "https://assets.zyrosite.com/P6QZWgfwdfGCK3vy/";
 
-export type Logo = { name: string; src: string; ink?: boolean };
+export type Logo = { name: string; src: string };
 
 export const worker = {
   headline: "New York work ethic. LA vibe. Southern affect.",
@@ -10,12 +10,11 @@ export const worker = {
   journey:
     "From the University of Georgia to Lima to NYC to LA to a remote office in Chattanooga, TN, home to Atlanta (and now to Seattle), I owe work a great debt for the Adventure of these logos:",
   // Logos in Randall's order. BBC and WSL use flat (unboxed) marks from Wikimedia Commons; the rest are the old site's files.
-  // `ink`: the artwork is white, which multiply-blends into nothing on cream, so it is rendered as solid ink instead.
   logos: ([
-    { name: "BBC World News", src: "https://commons.wikimedia.org/wiki/Special:FilePath/BBC_World_News_2022.svg", ink: true },
+    { name: "BBC World News", src: "https://commons.wikimedia.org/wiki/Special:FilePath/BBC_World_News_2022.svg" },
     { name: "Univision", src: Z + "logo_univision_2019-1-DRlGb25VNTD8Vb5R.svg" },
     { name: "WPP", src: Z + "logo_of_wpp_plc.svg-dssSmcMYrcSwcTEO.png" },
-    { name: "World Surf League", src: "https://commons.wikimedia.org/wiki/Special:FilePath/World_Surf_League_Logo_2020.png", ink: true },
+    { name: "World Surf League", src: "https://commons.wikimedia.org/wiki/Special:FilePath/World_Surf_League_Logo_2020.png" },
     { name: "Stept Studios", src: Z + "stept-logo-black-Rige5rmmUjCsPXjf.webp" },
     { name: "U.S. Soccer", src: Z + "united_states_soccer_federation_logo_2016.svg-1bhF7a39SMMT931c.png" },
     { name: "Chobani", src: Z + "chobani_logo_2017-ub3UMYVP1hlWrdBD.png" },

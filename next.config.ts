@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "assets.zyrosite.com" },
+      { protocol: "https", hostname: "commons.wikimedia.org" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "i.ytimg.com" },
       { protocol: "https", hostname: "i.vimeocdn.com" },
       { protocol: "https", hostname: "vumbnail.com" },
