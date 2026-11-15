@@ -45,7 +45,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const posters = raw.map((r) => r ?? fallback);
   // With films, the lead film is the hero; otherwise the first still is.
   const hero = videos.length ? null : images[0] ?? null;
-  const gallery = videos.length ? images : images.slice(1);
+  // When a film has no poster of its own, a still stands in for it — so don't show that still twice.
+  const leadFromStill = !!videos.length && !raw[0] && !!images[0] && fallback === images[0];
+  const gallery = videos.length ? (leadFromStill ? images.slice(1) : images) : images.slice(1);
   const [lead, ...more] = videos;
   const caption = indexCopy[p.slug]?.caption;
   const scope = caption && caption !== p.tag ? caption : null;

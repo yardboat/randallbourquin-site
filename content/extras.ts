@@ -14,6 +14,8 @@ export type Extras = {
 
 const DR = "https://media.designrush.com/";
 const DN = "https://directorsnotes.com/wp-content/uploads/2020/03/";
+// Frames Randall supplied from the film (2026-11-15), re-hosted with the site rather than hot-linked.
+const RM = "/work/real-madrid/";
 
 export const extras: Record<string, Extras> = {
   "ford-bronco": {
@@ -112,6 +114,11 @@ export const extras: Record<string, Extras> = {
       "https://i.ytimg.com/vi/0O872p5bj4g/maxres2.jpg",
       "https://i.ytimg.com/vi/0O872p5bj4g/maxres3.jpg",
     ],
+  },
+
+  "real-madrid-is-coming": {
+    // Randall's own frames. The charro leads: it carries the crest and still reads at thumbnail size.
+    images: [RM + "01-charro.jpg", RM + "02-graffiti.jpg", RM + "03-poster.jpg", RM + "04-floodlight.jpg", RM + "05-run.jpg"],
   },
 
   "got-milk-gonna-need-milk": {
