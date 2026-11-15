@@ -1,12 +1,12 @@
 # STATE — Portfolio Redesign
-_Updated 2026-11-14_
+_Updated 2026-11-15_
 
-**Phase:** v2 homepage LIVE on randallbourquin.com (2026-11-14). Post-launch work is below.
+**Phase:** v2 LIVE on randallbourquin.com — homepage (2026-11-14), case pages and Worker (2026-11-15).
 
 ## v2 (2026-11-10)
 - v1 is live from `main` (e14e055) and archived on branch `v1-archive`; Vercel production deployment dpl_2GHqzqEW2bAHwDiLijbuqhSaScTZ is the rollback target.
 - v2 homepage merged to `main` and live (2026-11-14). Rollback: branch `v1-archive` (e14e055), or Vercel deployment dpl_2GHqzqEW2bAHwDiLijbuqhSaScTZ.
-- Open after launch: case pages and Worker still use the v1 look; Safari and phone unchecked; confirm Got Milk as fifth lead; source files for true footage loops; Real Madrid has no still; Marriott copy still a placeholder; imagery still hot-links Zyro.
+- Open after launch: Safari unchecked (QC ran in Chrome at 1440 and 390); confirm Got Milk as fifth lead; source files for true footage loops; Real Madrid has no still; Marriott copy still a placeholder; imagery still hot-links Zyro.
 
 ## Done this session
 - Interview, Brief and Gate A ("go", 2026-10-21).
