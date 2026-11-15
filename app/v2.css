@@ -2,10 +2,12 @@
 html:has(.v2)::after { display: none; } /* no paper grain on the front page: cleaner ground */
 .v2 { --ease: cubic-bezier(.2, .8, .2, 1); --r: 4px; }
 .v2 .hdr { position: sticky; top: 0; z-index: 30; height: 60px; border-bottom-color: transparent; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+/* Reading pages keep the rule under the header; only the homepage trades it for the big name. */
+.v2-case .hdr, .v2-worker .hdr { border-bottom-color: var(--ink); }
 /* The big name is the logo up top; the small one arrives once it has scrolled away. */
 @supports (animation-timeline: scroll()) {
-  .v2 .hdr .who { animation: v2-who linear both; animation-timeline: scroll(root); animation-range: 180px 340px; }
-  .v2 .hdr { animation: v2-hdr linear both; animation-timeline: scroll(root); animation-range: 180px 340px; }
+  .v2-home .hdr .who { animation: v2-who linear both; animation-timeline: scroll(root); animation-range: 180px 340px; }
+  .v2-home .hdr { animation: v2-hdr linear both; animation-timeline: scroll(root); animation-range: 180px 340px; }
 }
 @keyframes v2-who { from { opacity: 0; transform: translateY(6px); } }
 @keyframes v2-hdr { to { border-bottom-color: var(--ink); } }
@@ -142,7 +144,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 @keyframes v2-rise { from { opacity: 0; transform: translateY(40px); } }
 
 @media (max-width: 860px) {
-  .v2 .hdr .who { animation: none; visibility: hidden; }
+  .v2-home .hdr .who { animation: none; visibility: hidden; }
   .v2-hero { padding-top: 14px; }
   .v2-name { font-size: 12.6vw; }
   .v2-stage { --p: 74vw; --lens: 68vw; }

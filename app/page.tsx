@@ -53,7 +53,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="v2">
+    <div className="v2 v2-home">
       <a href="#leads" className="skip">Skip to the work</a>
       <Header current="work" />
       <main>

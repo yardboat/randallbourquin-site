@@ -7,6 +7,8 @@ import { extras } from "@/content/extras";
 import { indexCopy } from "@/content/index-copy";
 import { embedUrl, heroFor, posterFor } from "@/lib/media";
 import { opt } from "@/lib/intro";
+import "@/app/v2.css";
+import "@/app/case.css";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -20,13 +22,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: p.title, description: p.body[0], openGraph: { title: p.title, images: hero ? [hero] : [] } };
 }
 
+const n2 = (k: number) => String(k + 1).padStart(2, "0");
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const i = projects.findIndex((x) => x.slug === slug);
   if (i < 0) notFound();
   const p = projects[i];
   const x = extras[p.slug] ?? {};
-  const next = projects[(i + 1) % projects.length];
+  const nextI = (i + 1) % projects.length;
+  const next = projects[nextI];
 
   const videos = [...p.videos, ...(x.videos ?? [])];
   const images = [...p.images, ...(x.images ?? [])];
@@ -38,44 +43,67 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const hero = videos.length ? null : images[0] ?? null;
   const gallery = videos.length ? images : images.slice(1);
   const [lead, ...more] = videos;
-  const n = (k: number) => String(k + 1).padStart(2, "0");
   const caption = indexCopy[p.slug]?.caption;
+  const scope = caption && caption !== p.tag ? caption : null;
 
   return (
-    <>
+    <div className="v2 v2-case">
+      <a href="#case" className="skip">Skip to the case</a>
       <Header current="work" />
-      <main>
-        <section className="case-head">
-          <div className="label k">
-            {n(i)} / {projects.length} · {p.client}
-          </div>
+      <main id="case">
+        <section className="c-head">
+          <p className="c-eyebrow label">
+            <Link href="/">← All work</Link>
+            <span className="n">{n2(i)} <i>/ {n2(projects.length - 1)}</i></span>
+            <span>{p.client}</span>
+          </p>
           <h1>{p.title}</h1>
-          <Link href="/" className="label back">← All work</Link>
+          <div className="c-metarow">
+            <p className="c-proof label">{p.tag}</p>
+            {x.award ? <p className="c-award label">★ {x.award}</p> : null}
+          </div>
         </section>
 
-        {hero ? (
-          <div className="case-hero" style={{ ["--c" as string]: p.color }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={opt(hero, 1920)} alt={p.title} />
-          </div>
-        ) : null}
-
         {lead ? (
-          <section className="media" aria-label="Lead film" style={{ paddingTop: 0 }}>
-            <div>
-              <VideoFacade src={embedUrl(lead)} poster={posters[0]} title={`${p.title}${lead.label ? `: ${lead.label}` : ""}`} />
-              {lead.label ? <div className="label vlabel">{lead.label}</div> : null}
+          <section className="c-stage" aria-label="Lead film" data-reveal>
+            <VideoFacade src={embedUrl(lead)} poster={posters[0]} title={`${p.title}${lead.label ? `: ${lead.label}` : ""}`} />
+            {lead.label ? <div className="vlabel label">{lead.label}</div> : null}
+          </section>
+        ) : hero ? (
+          <section className="c-stage" aria-label="Lead image" data-reveal>
+            <div className="c-frame c-still" style={{ ["--c" as string]: p.color }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={opt(hero.replace(/#scope$/, ""), 1920)} alt={p.title} />
             </div>
           </section>
         ) : null}
 
-        <section className="case-body">
-          <div className="side label">
-            <div>{p.client}</div>
-            <div>{p.tag}</div>
-            {caption && caption !== p.tag ? <div>{caption}</div> : null}
-          </div>
-          <div className="copy">
+        <section className="c-body" data-reveal>
+          <dl className="c-side label">
+            <div>
+              <dt>Client</dt>
+              <dd>{p.client}</dd>
+            </div>
+            {scope ? (
+              <div>
+                <dt>Scope</dt>
+                <dd>{scope}</dd>
+              </div>
+            ) : null}
+            {videos.length ? (
+              <div>
+                <dt>Films</dt>
+                <dd>{videos.length}</dd>
+              </div>
+            ) : null}
+            {gallery.length ? (
+              <div>
+                <dt>Stills</dt>
+                <dd>{gallery.length}</dd>
+              </div>
+            ) : null}
+          </dl>
+          <div className="c-copy">
             {p.body.map((t, k) => (
               <p key={k}>{t}</p>
             ))}
@@ -83,7 +111,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </section>
 
         {x.quote ? (
-          <figure className="pull">
+          <figure className="c-pull" data-reveal>
             <blockquote>“{x.quote.text.replace(/^[“"]|[”"]$/g, "")}”</blockquote>
             <figcaption className="label">
               <a href={x.quote.url} target="_blank" rel="noopener noreferrer">
@@ -95,57 +123,59 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ) : null}
 
         {more.length ? (
-          <section className={`media${more.length > 1 ? " two" : ""}`} aria-label="More films">
-            {more.map((v, k) => (
-              <div key={v.id}>
-                <VideoFacade src={embedUrl(v)} poster={posters[k + 1]} title={`${p.title}${v.label ? `: ${v.label}` : ""}`} />
-                {v.label ? <div className="label vlabel">{v.label}</div> : null}
-              </div>
-            ))}
+          <section className="c-media" aria-label="More films" data-reveal>
+            <h2 className="c-kicker label">More film</h2>
+            <div className={`c-grid${more.length > 1 ? " two" : ""}`}>
+              {more.map((v, k) => (
+                <div key={v.id}>
+                  <VideoFacade src={embedUrl(v)} poster={posters[k + 1]} title={`${p.title}${v.label ? `: ${v.label}` : ""}`} />
+                  {v.label ? <div className="vlabel label">{v.label}</div> : null}
+                </div>
+              ))}
+            </div>
           </section>
         ) : null}
 
         {gallery.length ? (
-          <section className={`media${gallery.length > 1 ? " two" : ""}`} aria-label="Stills">
-            {gallery.map((src, k) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={src}
-                src={opt(src.replace(/#scope$/, ""), 1920)}
-                className={src.endsWith("#scope") ? "scope" : undefined}
-                alt={`${p.title}, still ${k + 1}`}
-                loading="lazy"
-              />
-            ))}
+          <section className="c-media" aria-label="Stills" data-reveal>
+            <h2 className="c-kicker label">Stills</h2>
+            <div className={`c-grid${gallery.length > 1 ? " two" : ""}`}>
+              {gallery.map((src, k) => (
+                <span key={src} className={`c-shot${src.endsWith("#scope") ? " scope" : ""}`} style={{ ["--c" as string]: p.color }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={opt(src.replace(/#scope$/, ""), 1600)} alt={`${p.title}, still ${k + 1}`} loading="lazy" />
+                </span>
+              ))}
+            </div>
           </section>
         ) : null}
 
-        {x.award || x.press?.length ? (
-          <section className="press" aria-label="Recognition and press">
-            {x.award ? <p className="award label">★ {x.award}</p> : null}
-            {x.press?.length ? (
-              <>
-                <h2 className="label">In the press</h2>
-                <ul>
-                  {x.press.map((pr) => (
-                    <li key={pr.url}>
-                      <a href={pr.url} target="_blank" rel="noopener noreferrer">
-                        <span className="label">{pr.outlet}</span>
-                        <span className="t">{pr.title} ↗</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
+        {x.press?.length ? (
+          <section className="c-press" aria-label="Press" data-reveal>
+            <h2 className="c-kicker label">In the press</h2>
+            <ul>
+              {x.press.map((pr) => (
+                <li key={pr.url}>
+                  <a href={pr.url} target="_blank" rel="noopener noreferrer">
+                    <span className="o label">{pr.outlet}</span>
+                    <span className="t">{pr.title}</span>
+                    <span className="arr" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </section>
         ) : null}
 
-        <Link href={`/work/${next.slug}`} className="next">
-          <span className="label" style={{ color: "var(--dim)" }}>Next · {n((i + 1) % projects.length)}</span>
+        <Link href={`/work/${next.slug}`} className="c-next">
+          <span className="k label">Next · {n2(nextI)}</span>
           <span className="t">{indexCopy[next.slug]?.wall ?? next.title} →</span>
         </Link>
       </main>
-    </>
+      <footer className="v2-foot label">
+        <span>Randall Bourquin</span>
+        <nav aria-label="Footer"><Link href="/">Work</Link><Link href="/worker">Worker</Link></nav>
+      </footer>
+    </div>
   );
 }

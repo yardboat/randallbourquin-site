@@ -16,7 +16,7 @@ export default function VideoFacade({ src, poster, title }: { src: string; poste
     <button className="facade" onClick={() => setOn(true)} aria-label={`Play ${title}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {poster ? <img src={poster} alt="" loading="lazy" /> : null}
-      <span className="pill play">▶ Play</span>
+      <span className="play" aria-hidden="true">▶</span>
     </button>
   );
 }
