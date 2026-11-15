@@ -136,7 +136,9 @@ export const projects: Project[] = [
     body: [
       "The biggest media channel I've ever landed work on was Real Madrid's social ecosystem, clocking in at ~300MM. We engineered a small shoot to make the team's U.S. tour news feel BIG.",
     ],
-    videos: [{ provider: "vimeo", id: "347364983" }],
+    // Vimeo 347364983 is domain-locked ("this video cannot be played here"), verified on the live
+    // domain 2026-11-15, so the case leads with Randall's own frames instead. Restore it if a public cut appears.
+    videos: [],
     images: [],
     color: "#1B2B6B",
   },
