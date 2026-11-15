@@ -28,9 +28,9 @@ export default function WorkerPage() {
         <ul className="w-logos" aria-label="Where I've worked">
           {worker.logos.map((l) => (
             <li key={l.name}>
-              {/* Through the optimizer: the Wikimedia marks redirect, and a raw hotlink arrives late. */}
+              {/* Raster marks go through the optimizer; Next refuses remote SVG, so those are served as they are. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={opt(l.src, 384)} alt={l.name} />
+              <img src={/\.svg(\?|$)/i.test(l.src) ? l.src : opt(l.src, 384)} alt={l.name} fetchPriority="high" />
             </li>
           ))}
         </ul>
