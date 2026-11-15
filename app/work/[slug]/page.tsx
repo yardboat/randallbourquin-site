@@ -49,6 +49,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const [lead, ...more] = videos;
   const caption = indexCopy[p.slug]?.caption;
   const scope = caption && caption !== p.tag ? caption : null;
+  // The award says it better: drop any part of the proof line the award already carries (e.g. "Silver Clio").
+  const norm = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const proof = p.tag
+    .split("·")
+    .map((t) => t.trim())
+    .filter((t) => t && !(x.award && norm(x.award).includes(norm(t))))
+    .join(" · ");
 
   return (
     <div className="v2 v2-case">
@@ -63,7 +70,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </p>
           <h1>{p.title}</h1>
           <div className="c-metarow">
-            <p className="c-proof label">{p.tag}</p>
+            {proof ? <p className="c-proof label">{proof}</p> : null}
             {x.award ? <p className="c-award label">★ {x.award}</p> : null}
           </div>
         </section>
