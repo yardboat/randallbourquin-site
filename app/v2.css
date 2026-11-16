@@ -54,8 +54,8 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-lens::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 1px 0 rgba(255, 255, 255, .5); }
 
 /* The centred project, named */
-.v2-now { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 3vw, 48px); margin-top: clamp(6px, 1vw, 16px); padding: 0 var(--gutter); }
-.v2-nowlink { display: grid; justify-items: center; gap: 8px; text-decoration: none; width: min(100%, 900px); animation: v2-swap 520ms var(--ease) both; }
+.v2-now { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 3vw, 48px); margin-top: clamp(14px, 1.8vw, 30px); padding: 0 var(--gutter); }
+.v2-nowlink { display: grid; justify-items: center; gap: 10px; text-decoration: none; width: min(100%, 900px); animation: v2-swap 520ms var(--ease); }
 @keyframes v2-swap { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
 .v2-now .t { font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3.9vw, 62px); line-height: 0.95; white-space: nowrap; }
 .v2-now .pill { margin-top: 6px; padding: 11px 18px; font-size: 11px; }
