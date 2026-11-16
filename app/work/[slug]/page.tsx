@@ -22,8 +22,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: p.title, description: p.body[0], openGraph: { title: p.title, images: hero ? [hero] : [] } };
 }
 
-const n2 = (k: number) => String(k + 1).padStart(2, "0");
-
 // Widths must be ones Next's optimizer allows (its deviceSizes), or it answers 400.
 const WIDTHS = [828, 1200, 1920];
 const srcSet = (raw: string) => WIDTHS.map((w) => `${opt(raw, w)} ${w}w`).join(", ");
@@ -67,8 +65,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <section className="c-head">
           <p className="c-eyebrow label">
             <Link href="/">← All work</Link>
-            <span className="n">{n2(i)} <i>/ {n2(projects.length - 1)}</i></span>
-            <span>{p.client}</span>
           </p>
           <h1>{p.title}</h1>
           <div className="c-metarow">
@@ -187,7 +183,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ) : null}
 
         <Link href={`/work/${next.slug}`} className="c-next">
-          <span className="k label">Next · {n2(nextI)}</span>
+          <span className="k label">Next</span>
           <span className="t">{indexCopy[next.slug]?.wall ?? next.title} →</span>
         </Link>
       </main>

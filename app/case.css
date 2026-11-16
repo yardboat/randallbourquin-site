@@ -5,8 +5,6 @@
 .c-eyebrow { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 14px; margin: 0 0 clamp(14px, 1.8vw, 26px); color: var(--dim); font-size: 11px; }
 .c-eyebrow a { text-decoration: none; border-bottom: 1px solid var(--rule); }
 .c-eyebrow a:hover { color: var(--accent); border-color: var(--accent); }
-.c-eyebrow .n { color: var(--accent); }
-.c-eyebrow .n i { font-style: normal; color: var(--mute); }
 .c-head h1 { margin: 0; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(42px, 7.2vw, 142px); line-height: 0.9; letter-spacing: -0.012em; text-wrap: balance; }
 .c-metarow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: clamp(14px, 1.8vw, 24px); }
 .c-proof { margin: 0; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 7px 12px; font-size: 11px; }
