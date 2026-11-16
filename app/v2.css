@@ -57,18 +57,13 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-now { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 3vw, 48px); margin-top: clamp(6px, 1vw, 16px); padding: 0 var(--gutter); }
 .v2-nowlink { display: grid; justify-items: center; gap: 8px; text-decoration: none; width: min(100%, 900px); animation: v2-swap 520ms var(--ease) both; }
 @keyframes v2-swap { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
-.v2-now .n { color: var(--accent); font-size: 11px; }
-.v2-now .n i { font-style: normal; color: var(--mute); }
 .v2-now .t { font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3.9vw, 62px); line-height: 0.95; white-space: nowrap; }
-.v2-now .k { color: var(--dim); font-size: 11px; }
 .v2-now .pill { margin-top: 6px; padding: 11px 18px; font-size: 11px; }
 .v2-nowlink:hover .pill { background: var(--accent); }
 .v2-arrow { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ink); background: none; color: var(--ink); font-family: var(--mono); font-size: 16px; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 300ms var(--ease); }
 .v2-arrow:hover { background: var(--ink); color: var(--bg); }
 .v2-arrow:active { transform: scale(.92); }
-.v2-hint { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 22px; color: var(--mute); font-size: 10px; }
-.v2-hint a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); }
-.v2-hint a:hover { color: var(--accent); border-color: var(--accent); }
+.v2-hint { display: flex; justify-content: center; margin-top: 24px; }
 
 /* Lead cases */
 .v2-leads { border-top: 1px solid var(--ink); }
@@ -150,7 +145,6 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
   .v2-stage { --p: 74vw; --lens: 68vw; }
   .v2-arrow { display: none; }
   .v2-now .t { white-space: normal; font-size: 8.6vw; min-height: 1.9em; display: flex; align-items: center; text-wrap: balance; }
-  .v2-hint span { display: none; }
   .v2-lead { display: flex; flex-direction: column; align-items: stretch; gap: 20px; }
   .v2-lead.flip .media { order: 0; }
   .v2-lead h2 { font-size: clamp(40px, 12vw, 64px); }

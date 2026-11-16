@@ -13,7 +13,7 @@ const HOLD = 2800; // ms each project holds the centre
  * and sharp in the lens at the middle, and named below. Drag, arrows or click a tile to turn it.
  * Decorative for assistive tech: the "All work" list below is the accessible index.
  */
-export default function Ring({ items, total }: { items: RingItem[]; total: number }) {
+export default function Ring({ items }: { items: RingItem[] }) {
   const stage = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const api = useRef<{ go: (d: number) => void; to: (i: number) => void }>({ go() {}, to() {} });
@@ -168,10 +168,8 @@ export default function Ring({ items, total }: { items: RingItem[]; total: numbe
       <div className="v2-now">
         <button type="button" className="v2-arrow" aria-label="Previous project" onClick={() => api.current.go(-1)}>←</button>
         <Link href={c.href} className="v2-nowlink" key={c.href}>
-          <span className="label n">{c.n} <i>/ {String(total).padStart(2, "0")}</i> · {c.client}</span>
           <span className="t">{c.title}</span>
-          <span className="label k">{c.tag}</span>
-          <span className="pill">Open the case</span>
+          <span className="pill">View the work</span>
         </Link>
         <button type="button" className="v2-arrow" aria-label="Next project" onClick={() => api.current.go(1)}>→</button>
       </div>

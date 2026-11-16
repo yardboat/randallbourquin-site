@@ -62,8 +62,8 @@ export default async function Home() {
           <h1 className="v2-name">
             <span><b>Randall</b></span> <span><b>Bourquin</b></span>
           </h1>
-          <Ring items={ringItems} total={all.length} />
-          <div className="v2-hint label"><span>Drag, or use ← →</span><MotionToggle /><a href="#leads">Scroll for the work ↓</a></div>
+          <Ring items={ringItems} />
+          <div className="v2-hint"><MotionToggle /></div>
         </section>
 
         {/* Five lead cases */}
