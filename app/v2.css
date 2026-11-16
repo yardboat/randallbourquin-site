@@ -24,7 +24,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 @keyframes v2-up { from { transform: translateY(105%); } }
 
 /* The camera sits at the centre of a cylinder of radius --p: tiles curve away in the middle and swing in at the edges. */
-.v2-stage { --p: 30vw; --w: calc(var(--p) * 0.139); --lens: 23vw; position: relative; height: calc(var(--lens) * 0.75 + 5vw); margin-top: clamp(0px, 0.4vw, 8px); perspective: var(--p); perspective-origin: 50% 50%; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; animation: v2-fade 900ms 150ms ease both; }
+.v2-stage { --p: 30vw; --w: calc(var(--p) * 0.139); --lens: 30vw; position: relative; height: calc(var(--lens) * 0.75 + 5vw); margin-top: clamp(0px, 0.4vw, 8px); perspective: var(--p); perspective-origin: 50% 50%; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; animation: v2-fade 900ms 150ms ease both; }
 .v2-stage.dragging { cursor: grabbing; }
 @keyframes v2-fade { from { opacity: 0; } }
 .v2-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(var(--p)); will-change: transform; }
@@ -142,7 +142,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
   .v2-home .hdr .who { animation: none; visibility: hidden; }
   .v2-hero { padding-top: 14px; }
   .v2-name { font-size: 12.6vw; }
-  .v2-stage { --p: 74vw; --lens: 68vw; }
+  .v2-stage { --p: 74vw; --lens: 88vw; }
   .v2-arrow { display: none; }
   .v2-now .t { white-space: normal; font-size: 8.6vw; min-height: 1.9em; display: flex; align-items: center; text-wrap: balance; }
   .v2-lead { display: flex; flex-direction: column; align-items: stretch; gap: 20px; }
