@@ -44,7 +44,7 @@ export default async function Home() {
   const card = (x: (typeof all)[number], k: number): RingItem => {
     const raw = x.stills.length ? x.stills[k % x.stills.length] : undefined;
     const small = raw ? frame(raw, false) : undefined, big = raw ? frame(raw, true) : undefined;
-    return { href: x.p.external ?? `/work/${x.p.slug}`, external: !!x.p.external, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: small?.src, scope: small?.scope, heroSrc: big?.src, heroSrcSet: big?.srcSet };
+    return { href: x.p.external ?? `/work/${x.p.slug}`, external: !!x.p.external, blurb: x.p.blurb, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: small?.src, scope: small?.scope, heroSrc: big?.src, heroSrcSet: big?.srcSet };
   };
   // Three laps of the 14, in order: each lap shows the project's next still.
   const ringItems: RingItem[] = [0, 1, 2].flatMap((k) => all.map((x) => card(x, k)));

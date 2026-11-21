@@ -16,6 +16,8 @@ export type Project = {
   color: string;
   /** Set when the tile opens another site instead of a case page here. */
   external?: string;
+  /** One-line description shown under the title in the ring. */
+  blurb?: string;
 };
 
 const Z = "https://assets.zyrosite.com/P6QZWgfwdfGCK3vy/";
@@ -81,12 +83,11 @@ export const projects: Project[] = [
   },
   {
     slug: "experience-builds",
-    title: "Experience Builds",
+    title: "AI Portfolio",
     client: "Self-initiated",
     tag: "No-code · 8 builds",
-    body: [
-      "Concept has never mattered more. These projects are an exploration to develop co-working intuition and understand possibility practically. And now I know what \u201cstack\u201d means.",
-    ],
+    blurb: "Brands will break through by building experiences. Now that\u2019s more possible than ever. These are explorations built by me in search of new AI possibilities.",
+    body: ["Brands will break through by building experiences. Now that\u2019s more possible than ever. These are explorations built by me in search of new AI possibilities."],
     videos: [],
     images: [EB + "01-hero.jpg", EB + "02-builds.jpg"],
     color: "#cd5133",

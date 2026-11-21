@@ -4,7 +4,7 @@ export const indexCopy: Record<string, { wall: string; caption: string; teaser: 
   "chobani-world-cup-2026": { wall: "Chobani World Cup 2026", caption: "67+ pieces", teaser: "Feed their Dream: three sub-campaigns, multiple partnerships, and a comms strategy that turned up in volume as the World Cup did." },
   "gold-peak-golden-hour-lens": { wall: "Gold Peak Golden Hour Lens", caption: "ADWEEK Media Plan of the Year", teaser: "20+ influencer partnerships. 90M impressions. One commenter said: \"Ngl pretty decent ad.\"" },
   "crown-royal-triple-nickel": { wall: "Sundays at the Triple Nickel", caption: "Silver Clio · Vimeo Staff Pick", teaser: "A Film that powered a campaign. Screened at 20 film festivals. Marjorie = Angel." },
-  "experience-builds": { wall: "Experience Builds", caption: "No-code · 8 builds", teaser: "Concept has never mattered more. These projects are an exploration to develop co-working intuition and understand possibility practically." },
+  "experience-builds": { wall: "AI Portfolio", caption: "No-code · 8 builds", teaser: "Brands will break through by building experiences. Now that\u2019s more possible than ever. These are explorations built by me in search of new AI possibilities." },
   "oakley-surf": { wall: "Oakley Surf", caption: "Positioning", teaser: "One Idea to get Oakley Surfing in (and on) surfers' heads." },
   "us-soccer-deaf-double-header": { wall: "U.S. Soccer Deaf Double-Header", caption: "Live TV", teaser: "The Greatest Team You've Never Heard Of got the platform they deserve. Year 2 was even better." },
   "wsl-dream-job": { wall: "WSL Dream Job", caption: "2,400 applications", teaser: "We turned \"Re: DUDE can you get me a JOB?!\" into a real job. 1 million microsite visits." },

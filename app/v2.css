@@ -58,6 +58,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
 .v2-nowlink { display: grid; justify-items: center; gap: 10px; text-decoration: none; width: min(100%, 900px); animation: v2-swap 520ms var(--ease); }
 @keyframes v2-swap { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
 .v2-now .t { font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3.9vw, 62px); line-height: 0.95; white-space: nowrap; }
+.v2-now .d { font-family: var(--serif); font-size: clamp(15px, 1.2vw, 20px); line-height: 1.35; color: var(--dim); max-width: 56ch; text-wrap: balance; }
 .v2-now .pill { margin-top: 6px; padding: 11px 18px; font-size: 11px; }
 .v2-nowlink:hover .pill { background: var(--accent); }
 .v2-arrow { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ink); background: none; color: var(--ink); font-family: var(--mono); font-size: 16px; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 300ms var(--ease); }
@@ -144,6 +145,7 @@ html:has(.v2)::after { display: none; } /* no paper grain on the front page: cle
   .v2-name { font-size: 12.6vw; }
   .v2-stage { --p: 74vw; --lens: 88vw; }
   .v2-arrow { display: none; }
+  .v2-now .d { font-size: 15px; max-width: none; }
   .v2-now .t { white-space: normal; font-size: 8.6vw; min-height: 1.9em; display: flex; align-items: center; text-wrap: balance; }
   .v2-lead { display: flex; flex-direction: column; align-items: stretch; gap: 20px; }
   .v2-lead.flip .media { order: 0; }

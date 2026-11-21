@@ -3,7 +3,7 @@ import Link from "next/link";
 import Out from "./Out";
 import { useEffect, useRef, useState } from "react";
 
-export type RingItem = { href: string; external?: boolean; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean; heroSrc?: string; heroSrcSet?: string };
+export type RingItem = { href: string; external?: boolean; blurb?: string; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean; heroSrc?: string; heroSrcSet?: string };
 
 const wrap = (d: number) => ((((d + 180) % 360) + 360) % 360) - 180;
 const HOLD = 2800; // ms each project holds the centre
@@ -170,6 +170,7 @@ export default function Ring({ items }: { items: RingItem[] }) {
         <button type="button" className="v2-arrow" aria-label="Previous project" onClick={() => api.current.go(-1)}>←</button>
         <Out href={c.href} external={c.external} className="v2-nowlink" key={c.href}>
           <span className="t">{c.title}</span>
+          {c.blurb ? <span className="d">{c.blurb}</span> : null}
           <span className="pill">{c.external ? "View the site ↗" : "View the work"}</span>
         </Out>
         <button type="button" className="v2-arrow" aria-label="Next project" onClick={() => api.current.go(1)}>→</button>
