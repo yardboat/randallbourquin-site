@@ -14,9 +14,12 @@ export type Project = {
   images: string[];
   /** Project color for hover / case-page theming. */
   color: string;
+  /** Set when the tile opens another site instead of a case page here. */
+  external?: string;
 };
 
 const Z = "https://assets.zyrosite.com/P6QZWgfwdfGCK3vy/";
+const EB = "/work/experience-builds/";
 
 export const projects: Project[] = [
   {
@@ -75,6 +78,19 @@ export const projects: Project[] = [
     ],
     images: [],
     color: "#24142F",
+  },
+  {
+    slug: "experience-builds",
+    title: "Experience Builds",
+    client: "Self-initiated",
+    tag: "No-code · 8 builds",
+    body: [
+      "Concept has never mattered more. These projects are an exploration to develop co-working intuition and understand possibility practically. And now I know what \u201cstack\u201d means.",
+    ],
+    videos: [],
+    images: [EB + "01-hero.jpg", EB + "02-builds.jpg"],
+    color: "#cd5133",
+    external: "https://experience-builds.vercel.app/",
   },
   {
     slug: "oakley-surf",

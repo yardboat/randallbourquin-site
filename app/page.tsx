@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Out from "@/components/v2/Out";
 import Header from "@/components/Header";
 import FrameLoop, { type Frame } from "@/components/v2/FrameLoop";
 import MotionToggle from "@/components/v2/MotionToggle";
@@ -12,7 +13,7 @@ import { opt } from "@/lib/intro";
 import "./v2.css";
 
 // v2 homepage (2026-11-10). Five lead cases get depth; all 14 stay visible in Randall's order.
-const LEADS = ["ford-bronco", "chobani-world-cup-2026", "gold-peak-golden-hour-lens", "crown-royal-triple-nickel", "got-milk-gonna-need-milk"];
+const LEADS = ["ford-bronco", "chobani-world-cup-2026", "gold-peak-golden-hour-lens", "crown-royal-triple-nickel", "experience-builds"];
 
 const frame = (raw: string, big: boolean): Frame => {
   const scope = raw.endsWith("#scope");
@@ -43,7 +44,7 @@ export default async function Home() {
   const card = (x: (typeof all)[number], k: number): RingItem => {
     const raw = x.stills.length ? x.stills[k % x.stills.length] : undefined;
     const small = raw ? frame(raw, false) : undefined, big = raw ? frame(raw, true) : undefined;
-    return { href: `/work/${x.p.slug}`, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: small?.src, scope: small?.scope, heroSrc: big?.src, heroSrcSet: big?.srcSet };
+    return { href: x.p.external ?? `/work/${x.p.slug}`, external: !!x.p.external, n: n2(x.i), title: x.copy?.wall ?? x.p.title, client: x.p.client, tag: x.copy?.caption ?? x.p.tag, color: x.p.color, src: small?.src, scope: small?.scope, heroSrc: big?.src, heroSrcSet: big?.srcSet };
   };
   // Three laps of the 14, in order: each lap shows the project's next still.
   const ringItems: RingItem[] = [0, 1, 2].flatMap((k) => all.map((x) => card(x, k)));
@@ -70,12 +71,12 @@ export default async function Home() {
         <section id="leads" className="v2-leads" aria-label="Lead cases">
           {leads.map(({ p, i, copy, ex, stills }, k) => (
             <article key={p.slug} className={"v2-lead" + (k % 2 ? " flip" : "")} data-reveal>
-              <Link href={`/work/${p.slug}`} className="media" style={{ ["--c" as string]: p.color }} aria-label={`${p.title}: open the case`}>
+              <Out href={p.external ?? `/work/${p.slug}`} external={!!p.external} className="media" style={{ ["--c" as string]: p.color }} aria-label={p.external ? `${p.title}: open the site` : `${p.title}: open the case`}>
                 <FrameLoop frames={stills.map((s) => frame(s, true))} alt={p.title} sizes="(max-width: 860px) 100vw, 60vw" eager={k === 0} />
-              </Link>
+              </Out>
               <div className="txt">
                 <p className="label meta"><span>{n2(i)}</span> {p.client}</p>
-                <h2><Link href={`/work/${p.slug}`}>{copy?.wall ?? p.title}</Link></h2>
+                <h2><Out href={p.external ?? `/work/${p.slug}`} external={!!p.external}>{copy?.wall ?? p.title}</Out></h2>
                 <p className="teaser">{copy?.teaser}</p>
                 <p className="label proof">{ex.award ?? p.tag}</p>
                 {ex.quote && (
@@ -86,7 +87,7 @@ export default async function Home() {
                     </footer>
                   </blockquote>
                 )}
-                <Link href={`/work/${p.slug}`} className="pill">{p.videos.length || ex.videos?.length ? "Watch the film" : "See the work"}</Link>
+                <Out href={p.external ?? `/work/${p.slug}`} external={!!p.external} className="pill">{p.external ? "View the site ↗" : p.videos.length || ex.videos?.length ? "Watch the film" : "See the work"}</Out>
               </div>
             </article>
           ))}

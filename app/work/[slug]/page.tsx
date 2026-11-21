@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Out from "@/components/v2/Out";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import VideoFacade from "@/components/VideoFacade";
@@ -11,7 +12,8 @@ import "@/app/v2.css";
 import "@/app/case.css";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  // Projects that live on another site have no case page here.
+  return projects.filter((p) => !p.external).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,7 +31,7 @@ const srcSet = (raw: string) => WIDTHS.map((w) => `${opt(raw, w)} ${w}w`).join("
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const i = projects.findIndex((x) => x.slug === slug);
-  if (i < 0) notFound();
+  if (i < 0 || projects[i].external) notFound();
   const p = projects[i];
   const x = extras[p.slug] ?? {};
   const nextI = (i + 1) % projects.length;
@@ -182,10 +184,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </section>
         ) : null}
 
-        <Link href={`/work/${next.slug}`} className="c-next">
+        <Out href={next.external ?? `/work/${next.slug}`} external={!!next.external} className="c-next">
           <span className="k label">Next</span>
-          <span className="t">{indexCopy[next.slug]?.wall ?? next.title} →</span>
-        </Link>
+          <span className="t">{indexCopy[next.slug]?.wall ?? next.title} {next.external ? "↗" : "→"}</span>
+        </Out>
       </main>
       <footer className="v2-foot label">
         <span>Randall Bourquin</span>

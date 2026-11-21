@@ -1,8 +1,8 @@
 "use client";
-import Link from "next/link";
+import Out from "./Out";
 import { useEffect, useRef, useState } from "react";
 
-export type Row = { href: string; n: string; title: string; client: string; tag: string; color: string; src?: string; scope?: boolean };
+export type Row = { href: string; external?: boolean; n: string; title: string; client: string; tag: string; color: string; src?: string; scope?: boolean };
 
 /** The full list. On a mouse, each row's picture follows the cursor; on touch each row carries its own thumbnail. */
 export default function WorkIndex({ rows }: { rows: Row[] }) {
@@ -31,7 +31,7 @@ export default function WorkIndex({ rows }: { rows: Row[] }) {
       <ol ref={list} onMouseLeave={() => setOn(-1)}>
         {rows.map((r, i) => (
           <li key={r.href}>
-            <Link href={r.href} onMouseEnter={() => setOn(i)} onFocus={() => setOn(i)}>
+            <Out href={r.href} external={r.external} onMouseEnter={() => setOn(i)} onFocus={() => setOn(i)}>
               <span className="label n">{r.n}</span>
               <span className="thumb" style={{ ["--c" as string]: r.color }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -40,8 +40,8 @@ export default function WorkIndex({ rows }: { rows: Row[] }) {
               <span className="t">{r.title}</span>
               <span className="label c">{r.client}</span>
               <span className="label k">{r.tag}</span>
-              <span className="arr" aria-hidden="true">→</span>
-            </Link>
+              <span className="arr" aria-hidden="true">{r.external ? "↗" : "→"}</span>
+            </Out>
           </li>
         ))}
       </ol>

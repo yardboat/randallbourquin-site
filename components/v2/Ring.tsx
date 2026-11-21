@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
+import Out from "./Out";
 import { useEffect, useRef, useState } from "react";
 
-export type RingItem = { href: string; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean; heroSrc?: string; heroSrcSet?: string };
+export type RingItem = { href: string; external?: boolean; n: string; title: string; client: string; tag: string; color: string; src?: string; srcSet?: string; scope?: boolean; heroSrc?: string; heroSrcSet?: string };
 
 const wrap = (d: number) => ((((d + 180) % 360) + 360) % 360) - 180;
 const HOLD = 2800; // ms each project holds the centre
@@ -133,16 +134,16 @@ export default function Ring({ items }: { items: RingItem[] }) {
       <div className="v2-stage" ref={stage} aria-hidden="true">
         <div className="v2-ring" ref={ring}>
           {items.map((it, i) => (
-            <Link key={i} href={it.href} tabIndex={-1} draggable={false} className="v2-card" style={{ transform: `rotateY(${-(i * step)}deg) translateZ(calc(var(--p) * -1))`, ["--c" as string]: it.color }}>
+            <Out key={i} href={it.href} external={it.external} tabIndex={-1} draggable={false} className="v2-card" style={{ transform: `rotateY(${-(i * step)}deg) translateZ(calc(var(--p) * -1))`, ["--c" as string]: it.color }}>
               <span className="ph">{it.title}</span>
               {it.src && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={it.src} alt="" draggable={false} className={it.scope ? "scope" : ""} onError={(e) => (e.currentTarget.style.display = "none")} />
               )}
-            </Link>
+            </Out>
           ))}
         </div>
-        <Link href={c.href} tabIndex={-1} draggable={false} className="v2-lens">
+        <Out href={c.href} external={c.external} tabIndex={-1} draggable={false} className="v2-lens">
           {items.map((it, i) => {
             const d = Math.min(Math.abs(i - center), n - Math.abs(i - center));
             if (d > 1) return null; // current plus neighbours, so the next one is already loaded
@@ -163,14 +164,14 @@ export default function Ring({ items }: { items: RingItem[] }) {
               </span>
             );
           })}
-        </Link>
+        </Out>
       </div>
       <div className="v2-now">
         <button type="button" className="v2-arrow" aria-label="Previous project" onClick={() => api.current.go(-1)}>←</button>
-        <Link href={c.href} className="v2-nowlink" key={c.href}>
+        <Out href={c.href} external={c.external} className="v2-nowlink" key={c.href}>
           <span className="t">{c.title}</span>
-          <span className="pill">View the work</span>
-        </Link>
+          <span className="pill">{c.external ? "View the site ↗" : "View the work"}</span>
+        </Out>
         <button type="button" className="v2-arrow" aria-label="Next project" onClick={() => api.current.go(1)}>→</button>
       </div>
     </>
